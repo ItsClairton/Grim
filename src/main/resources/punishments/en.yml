@@ -54,6 +54,7 @@ Punishments:
   BadPackets:
     remove-violations-after: 120
     checks:
+      - "Indicator"
       - "BadPackets"
       - "Transaction"
       - "Crash"

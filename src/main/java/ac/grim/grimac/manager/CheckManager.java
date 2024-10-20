@@ -25,6 +25,8 @@ import ac.grim.grimac.checks.impl.prediction.Phase;
 import ac.grim.grimac.checks.impl.scaffolding.*;
 import ac.grim.grimac.checks.impl.velocity.ExplosionHandler;
 import ac.grim.grimac.checks.impl.velocity.KnockbackHandler;
+import ac.grim.grimac.checks.impl.visual.DamageIndicator;
+import ac.grim.grimac.checks.impl.visual.EquipmentIndicator;
 import ac.grim.grimac.checks.type.*;
 import ac.grim.grimac.events.packets.PacketChangeGameState;
 import ac.grim.grimac.events.packets.PacketEntityReplication;
@@ -100,6 +102,8 @@ public class CheckManager {
                 .put(InventoryA.class, new InventoryA(player))
                 .put(InventoryB.class, new InventoryB(player))
                 .put(InventoryC.class, new InventoryC(player))
+                .put(DamageIndicator.class, new DamageIndicator(player))
+                .put(EquipmentIndicator.class, new EquipmentIndicator(player))
                 .put(SetbackBlocker.class, new SetbackBlocker(player)) // Must be last class otherwise we can't check while blocking packets
                 .build();
         positionCheck = new ImmutableClassToInstanceMap.Builder<PositionCheck>()
