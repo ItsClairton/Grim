@@ -61,7 +61,7 @@ public class EquipmentIndicator extends Check implements PacketCheck {
                 needEncoding = true;
             }
 
-            if (item.getDamageValue() > 0) {
+            if (item.isDamaged()) {
                 item.setDamageValue(0);
                 needEncoding = true;
             }
