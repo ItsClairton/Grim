@@ -14,6 +14,8 @@ import java.util.Collections;
 @CheckData(name = "PositionPlace")
 public class PositionPlace extends BlockPlaceCheck {
 
+    private final boolean hasIdlePacket = player.getClientVersion().isOlderThan(ClientVersion.V_1_9);
+
     public PositionPlace(GrimPlayer player) {
         super(player);
     }
@@ -25,30 +27,15 @@ public class PositionPlace extends BlockPlaceCheck {
             return;
         }
 
-        SimpleCollisionBox combined = getCombinedBox(place);
-
-        // Alright, now that we have the most optimal positions for each place
-        // Please note that minY may be lower than maxY, this is INTENTIONAL!
-        // Each position represents the best case scenario to have clicked
-        //
-        // We will now calculate the most optimal position for the player's head to be in
-        double minEyeHeight = Collections.min(player.getPossibleEyeHeights());
-        double maxEyeHeight = Collections.max(player.getPossibleEyeHeights());
-        // I love the idle packet, why did you remove it mojang :(
-        // Don't give 0.03 lenience if the player is a 1.8 player and we know they couldn't have 0.03'd because idle packet
-        double movementThreshold = !player.packetStateData.didLastMovementIncludePosition || player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_9) ? player.getMovementThreshold() : 0;
-
-        SimpleCollisionBox eyePositions = new SimpleCollisionBox(player.x, player.y + minEyeHeight, player.z, player.x, player.y + maxEyeHeight, player.z);
-        eyePositions.expand(movementThreshold);
+        final var combined = getCombinedBox(place);
+        final var eyePositions = getEyePositions();
 
         // If the player is inside a block, then they can ray trace through the block and hit the other side of the block
         if (eyePositions.isIntersected(combined)) {
             return;
         }
 
-        // So now we have the player's possible eye positions
-        // So then look at the face that the player has clicked
-        boolean flag = switch (place.getDirection()) {
+        final var flag = switch (place.getDirection()) {
             case NORTH -> // Z- face
                     eyePositions.minZ > combined.minZ;
             case SOUTH -> // Z+ face
@@ -64,10 +51,40 @@ public class PositionPlace extends BlockPlaceCheck {
             default -> false;
         };
 
-        if (flag) {
-            if (flagAndAlert(new Pair<>("material", material)) && shouldModifyPackets() && shouldCancel()) {
-                place.resync();
-            }
+        if (!flag) {
+            return;
         }
+
+        if (!flagAndAlert(new Pair<>("material", material), new Pair<>("direction", place.getDirection()))) {
+            return;
+        }
+
+        if (!shouldModifyPackets() || !shouldCancel()) {
+            return;
+        }
+
+        place.resync();
     }
+
+    private SimpleCollisionBox getEyePositions() {
+        // Alright, now that we have the most optimal positions for each place
+        // Please note that minY may be lower than maxY, this is INTENTIONAL!
+        // Each position represents the best case scenario to have clicked
+        //
+        // We will now calculate the most optimal position for the player's head to be in
+        final var minEyeHeight = Collections.min(player.getPossibleEyeHeights());
+        final var maxEyeHeight = Collections.max(player.getPossibleEyeHeights());
+
+        final var movementThreshold = !player.packetStateData.didLastMovementIncludePosition || !hasIdlePacket
+                ? player.getMovementThreshold() :
+                0;
+
+        final var eyePositions = new SimpleCollisionBox(
+                player.x, player.y + minEyeHeight, player.z,
+                player.x, player.y + maxEyeHeight, player.z);
+
+        eyePositions.expand(movementThreshold);
+        return eyePositions;
+    }
+
 }

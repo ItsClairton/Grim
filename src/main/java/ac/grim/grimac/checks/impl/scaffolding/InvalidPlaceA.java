@@ -4,7 +4,7 @@ import ac.grim.grimac.checks.CheckData;
 import ac.grim.grimac.checks.type.BlockPlaceCheck;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.anticheat.update.BlockPlace;
-import com.github.retrooper.packetevents.util.Vector3f;
+import ac.grim.grimac.utils.data.Pair;
 
 @CheckData(name = "InvalidPlaceA")
 public class InvalidPlaceA extends BlockPlaceCheck {
@@ -20,10 +20,19 @@ public class InvalidPlaceA extends BlockPlaceCheck {
             return;
         }
 
-        if (!Float.isFinite(cursor.getX()) || !Float.isFinite(cursor.getY()) || !Float.isFinite(cursor.getZ())) {
-            if (flagAndAlert() && shouldModifyPackets() && shouldCancel()) {
-                place.resync();
-            }
+        if (Float.isFinite(cursor.getX()) && Float.isFinite(cursor.getY()) && Float.isFinite(cursor.getZ())) {
+            return;
         }
+
+        if (!flagAndAlert(new Pair<>("cursor", cursor))) {
+            return;
+        }
+
+        if (!shouldModifyPackets() || !shouldCancel()) {
+            return;
+        }
+
+        place.resync();
     }
+
 }

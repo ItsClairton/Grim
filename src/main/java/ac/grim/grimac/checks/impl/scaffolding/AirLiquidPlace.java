@@ -4,6 +4,7 @@ import ac.grim.grimac.checks.CheckData;
 import ac.grim.grimac.checks.type.BlockPlaceCheck;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.anticheat.update.BlockPlace;
+import ac.grim.grimac.utils.data.Pair;
 import ac.grim.grimac.utils.nmsutil.Materials;
 import com.github.retrooper.packetevents.protocol.player.GameMode;
 
@@ -23,11 +24,19 @@ public class AirLiquidPlace extends BlockPlaceCheck {
         final var blockPos = place.getPlacedAgainstBlockLocation();
         final var placeAgainst = player.compensatedWorld.getStateTypeAt(blockPos.getX(), blockPos.getY(), blockPos.getZ());
 
-        if (placeAgainst.isAir() || Materials.isNoPlaceLiquid(placeAgainst)) { // fail
-            if (flagAndAlert() && shouldModifyPackets() && shouldCancel()) {
-                place.resync();
-            }
+        if (!placeAgainst.isAir() && !Materials.isNoPlaceLiquid(placeAgainst)) {
+            return;
         }
+
+        if (!flagAndAlert(new Pair<>("material", place.getMaterial()), new Pair<>("place-against", placeAgainst))) {
+            return;
+        }
+
+        if (!shouldModifyPackets() || !shouldCancel()) {
+            return;
+        }
+
+        place.resync();
     }
 
     @Override

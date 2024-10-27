@@ -37,7 +37,12 @@ public class DuplicateRotPlace extends BlockPlaceCheck {
 
                 if (xDiff < 0.0001) {
                     final var xDiffDots = Math.abs(deltaDotsX - lastPlacedDeltaDotsX);
-                    flagAndAlert(new Pair<>("x", xDiff), new Pair<>("x-dots", xDiffDots), new Pair<>("y-delta", deltaY));
+                    flagAndAlert(
+                            new Pair<>("x", xDiff),
+                            new Pair<>("x-dots", xDiffDots),
+                            new Pair<>("y-delta", deltaY),
+                            new Pair<>("material", place.getMaterial()),
+                            new Pair<>("place-against", place.getPlacedAgainstMaterial()));
                 } else {
                     reward();
                 }

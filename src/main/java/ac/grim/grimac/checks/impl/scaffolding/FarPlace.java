@@ -5,6 +5,7 @@ import ac.grim.grimac.checks.type.BlockPlaceCheck;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.anticheat.update.BlockPlace;
 import ac.grim.grimac.utils.collisions.datatypes.SimpleCollisionBox;
+import ac.grim.grimac.utils.data.Pair;
 import ac.grim.grimac.utils.math.VectorUtils;
 import com.github.retrooper.packetevents.protocol.attribute.Attributes;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
@@ -25,25 +26,38 @@ public class FarPlace extends BlockPlaceCheck {
 
         final var blockPos = place.getPlacedAgainstBlockLocation();
 
-        var min = Double.MAX_VALUE;
+        var currentReach = Double.MAX_VALUE;
         for (final var d : player.getPossibleEyeHeights()) {
             final var box = new SimpleCollisionBox(blockPos);
             final var eyes = new Vector(player.x, player.y + d, player.z);
             final var best = VectorUtils.cutBoxToVector(eyes, box);
-            min = Math.min(min, eyes.distanceSquared(best));
+
+            currentReach = Math.min(currentReach, eyes.distanceSquared(best));
         }
 
-        // getPickRange() determines this?
-        // With 1.20.5+ the new attribute determines creative mode reach using a modifier
         var maxReach = player.compensatedEntities.getSelf().getAttributeValue(Attributes.PLAYER_BLOCK_INTERACTION_RANGE);
+
         final var threshold = player.getMovementThreshold();
         maxReach += Math.hypot(threshold, threshold);
 
-        if (min > maxReach * maxReach) { // fail
-            if (flagAndAlert() && shouldModifyPackets() && shouldCancel()) {
-                place.resync();
-            }
+        if (currentReach <= maxReach * maxReach) {
+            return;
         }
+
+        final var placeAgainst = place.getPlacedAgainstMaterial();
+        if (!flagAndAlert(
+                new Pair<>("material", place.getMaterial()),
+                new Pair<>("place-against", placeAgainst),
+                new Pair<>("current-reach", currentReach),
+                new Pair<>("max-reach", maxReach * maxReach))) {
+            return;
+        }
+
+        if (!shouldModifyPackets() || !shouldCancel()) {
+            return;
+        }
+
+        place.resync();
     }
 
 }

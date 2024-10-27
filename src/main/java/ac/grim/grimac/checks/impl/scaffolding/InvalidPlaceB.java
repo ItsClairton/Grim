@@ -25,11 +25,19 @@ public class InvalidPlaceB extends BlockPlaceCheck {
             return;
         }
 
-        if (place.getFaceId() < 0 || place.getFaceId() > 5) {
-            // ban
-            if (flagAndAlert(new Pair<>("direction", place.getFaceId())) && shouldModifyPackets() && shouldCancel()) {
-                place.resync();
-            }
+        if (place.getFaceId() >= 0 && place.getFaceId() <= 5) {
+            return;
         }
+
+        if (!flagAndAlert(new Pair<>("direction", place.getFaceId()))) {
+            return;
+        }
+
+        if (!shouldModifyPackets() || !shouldCancel()) {
+            return;
+        }
+
+        place.resync();
     }
+    
 }

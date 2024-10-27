@@ -12,22 +12,22 @@ import com.github.retrooper.packetevents.protocol.world.BlockFace;
 import com.github.retrooper.packetevents.util.Vector3f;
 import com.github.retrooper.packetevents.util.Vector3i;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientPlayerFlying;
-
-import java.util.ArrayList;
-import java.util.List;
+import it.unimi.dsi.fastutil.objects.ObjectArrayFIFOQueue;
 
 @CheckData(name = "MultiPlace", experimental = true)
 public class MultiPlace extends BlockPlaceCheck {
-    public MultiPlace(GrimPlayer player) {
-        super(player);
-    }
 
-    private final List<Pair<String, Object>[]> flags = new ArrayList<>();
+    private final ObjectArrayFIFOQueue<Pair<String, Object>[]> flags;
 
     private boolean hasPlaced;
     private BlockFace lastFace;
     private Vector3f lastCursor;
     private Vector3i lastPos;
+
+    public MultiPlace(GrimPlayer player) {
+        super(player);
+        this.flags = player.getClientVersion().isNewerThan(ClientVersion.V_1_8) ? new ObjectArrayFIFOQueue<>() : null;
+    }
 
     @SuppressWarnings("unchecked")
     @Override
@@ -45,12 +45,12 @@ public class MultiPlace extends BlockPlaceCheck {
                     new Pair<>("last-position", lastPos)
             };
 
-            if (player.getClientVersion().isOlderThanOrEquals(ClientVersion.V_1_8)) {
+            if (flags == null) {
                 if (flagAndAlert(verbose) && shouldModifyPackets() && shouldCancel()) {
                     place.resync();
                 }
             } else {
-                flags.add(verbose);
+                flags.enqueue(verbose);
             }
         }
 
@@ -71,13 +71,13 @@ public class MultiPlace extends BlockPlaceCheck {
 
     @Override
     public void onPredictionComplete(PredictionComplete predictionComplete) {
-        if (predictionComplete.isChecked() && !player.skippedTickInActualMovement && player.getClientVersion().isNewerThan(ClientVersion.V_1_8)) {
-            for (Pair<String, Object>[] verbose : flags) {
-                flagAndAlert(verbose);
-            }
+        if (!predictionComplete.isChecked() || player.skippedTickInActualMovement || flags == null) {
+            return;
         }
 
-        flags.clear();
+        while (!flags.isEmpty()) {
+            flagAndAlert(flags.dequeue());
+        }
     }
 
 }
