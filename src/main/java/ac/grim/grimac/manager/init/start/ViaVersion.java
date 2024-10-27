@@ -6,10 +6,14 @@ import com.viaversion.viaversion.api.Via;
 import io.github.retrooper.packetevents.util.viaversion.ViaVersionUtil;
 
 public class ViaVersion implements Initable {
-
     @Override
     public void start() {
-        if (!ViaVersionUtil.isAvailable() || !Via.getConfig().fix1_21PlacementRotation()) {
+        if (!ViaVersionUtil.isAvailable()) {
+            return;
+        }
+
+        if (!Via.getConfig().getValues().containsKey("fix-1_21-placement-rotation")
+                && Via.getConfig().fix1_21PlacementRotation()) {
             return;
         }
 
@@ -17,5 +21,4 @@ public class ViaVersion implements Initable {
         LogUtil.warn("This option is known to cause issues with GrimAC and may result in false positives and bypasses.");
         LogUtil.warn("Please disable this option in your ViaVersion configuration to prevent these issues.");
     }
-
 }

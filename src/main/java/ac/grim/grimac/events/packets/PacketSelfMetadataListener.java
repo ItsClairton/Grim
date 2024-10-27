@@ -72,6 +72,7 @@ public class PacketSelfMetadataListener extends PacketListenerAbstract {
                     // Remove the pose metadata from the list
                     metadataStuff.removeIf(element -> element.getIndex() == 6);
                     entityMetadata.setEntityMetadata(metadataStuff);
+                    event.markForReEncode(true);
                 }
 
                 EntityData watchable = WatchableIndexUtil.getIndex(entityMetadata.getEntityMetadata(), 0);
