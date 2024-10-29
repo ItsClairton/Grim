@@ -18,8 +18,6 @@ import com.github.retrooper.packetevents.util.Vector3d;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerUpdateAttributes;
 import org.bukkit.util.Vector;
 
-import java.util.Optional;
-
 public class PlayerBaseTick {
     GrimPlayer player;
 
@@ -261,13 +259,13 @@ public class PlayerBaseTick {
             if (player.compensatedEntities.getSelf().inVehicle()) {
                 player.isSwimming = false;
             } else if (player.isSwimming) {
-                player.isSwimming = player.lastSprinting && player.wasTouchingWater;
+                player.isSwimming = player.wasSprinting && player.wasTouchingWater;
             } else {
                 // Requirement added in 1.17 to fix player glitching between two swimming states
                 // while swimming with feet in air and eyes in water
                 boolean feetInWater = player.getClientVersion().isOlderThan(ClientVersion.V_1_17)
                         || player.compensatedWorld.getWaterFluidLevelAt(player.lastX, player.lastY, player.lastZ) > 0;
-                player.isSwimming = player.lastSprinting && player.wasEyeInWater && player.wasTouchingWater && feetInWater;
+                player.isSwimming = player.wasSprinting && player.wasEyeInWater && player.wasTouchingWater && feetInWater;
             }
         }
     }

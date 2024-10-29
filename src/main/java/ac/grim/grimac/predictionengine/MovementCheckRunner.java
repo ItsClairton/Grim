@@ -301,7 +301,7 @@ public class MovementCheckRunner extends Check implements PositionCheck {
         // This isn't the final velocity of the player in the tick, only the one applied to the player
         player.actualMovement = new Vector(player.x - player.lastX, player.y - player.lastY, player.z - player.lastZ);
 
-        if (player.isSprinting != player.lastSprinting) {
+        if (player.isSprinting != player.wasSprinting) {
             player.compensatedEntities.hasSprintingAttributeEnabled = player.isSprinting;
         }
 
@@ -428,11 +428,9 @@ public class MovementCheckRunner extends Check implements PositionCheck {
             // Dead players can't cheat, if you find a way how they could, open an issue
             player.predictedVelocity = new VectorData(new Vector(), VectorData.VectorType.Dead);
             player.clientVelocity = new Vector();
-        } else if (player.disableGrim || (PacketEvents.getAPI().getServerManager().getVersion().isNewerThanOrEquals(ServerVersion.V_1_8) && player.gamemode == GameMode.SPECTATOR) || player.isFlying) {
+        } else if (player.disableGrim || player.gamemode == GameMode.SPECTATOR) {
             // We could technically check spectator but what's the point...
             // Added complexity to analyze a gamemode used mainly by moderators
-            //
-            // TODO: Re-implement flying support, although LUNAR HAS FLYING CHEATS!!! HOW CAN I CHECK WHEN HALF THE PLAYER BASE IS USING CHEATS???
             player.predictedVelocity = new VectorData(player.actualMovement, VectorData.VectorType.Spectator);
             player.clientVelocity = player.actualMovement.clone();
             player.gravity = 0;
@@ -475,6 +473,10 @@ public class MovementCheckRunner extends Check implements PositionCheck {
             new PlayerBaseTick(player).updatePowderSnow();
             new PlayerBaseTick(player).updatePlayerPose();
 
+            if (player.gamemode == GameMode.CREATIVE && (player.isFlying || player.uncertaintyHandler.lastFlyingStatusChange.hasOccurredSince(25))) {
+                player.predictedVelocity = new VectorData(player.actualMovement, VectorData.VectorType.LunarFlySpeed);
+                player.clientVelocity = player.actualMovement.clone();
+            }
         } else if (PacketEvents.getAPI().getServerManager().getVersion().isNewerThanOrEquals(ServerVersion.V_1_9) && player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_9)) {
             wasChecked = true;
             // The player and server are both on a version with client controlled entities
@@ -555,7 +557,7 @@ public class MovementCheckRunner extends Check implements PositionCheck {
         }
 
         player.lastOnGround = player.onGround;
-        player.lastSprinting = player.isSprinting;
+        player.wasSprinting = player.isSprinting;
         player.lastSprintingForSpeed = player.isSprinting;
         player.wasFlying = player.isFlying;
         player.wasGliding = player.isGliding;

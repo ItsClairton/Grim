@@ -720,7 +720,7 @@ public class PredictionEngine {
                             result = result.returnNewModified(handleOnClimbable(result.vector.clone(), player), VectorData.VectorType.Climbable);
                             // Signal that we need to flip sneaking bounding box
                             if (loopUsingItem == 1)
-                                result = result.returnNewModified(result.vector, VectorData.VectorType.Flip_Use_Item);
+                                result = result.returnNewModified(result.vector, VectorData.VectorType.FlipUseItem);
                             returnVectors.add(result);
                         }
                     }

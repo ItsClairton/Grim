@@ -129,7 +129,7 @@ public class GrimPlayer implements GrimUser {
     public boolean isSneaking;
     public boolean wasSneaking;
     public boolean isSprinting;
-    public boolean lastSprinting;
+    public boolean wasSprinting;
     public String teamName;
     // The client updates sprinting attribute at end of each tick
     // Don't false if the server update's the player's sprinting status

@@ -119,10 +119,10 @@ public class VectorData {
             case Swimhop:
                 isSwimHop = true;
                 break;
-            case Flip_Sneaking:
+            case FlipSneaking:
                 isFlipSneaking = true;
                 break;
-            case Flip_Use_Item:
+            case FlipUseItem:
                 isFlipItem = true;
                 break;
             case Jump:
@@ -171,8 +171,9 @@ public class VectorData {
         SlimePistonBounce,
         ZeroPointZeroThree,
         AttackSlow,
-        Flip_Sneaking,
-        Flip_Use_Item,
-        EntityPushing
+        FlipSneaking,
+        FlipUseItem,
+        EntityPushing,
+        LunarFlySpeed
     }
 }

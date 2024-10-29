@@ -95,10 +95,10 @@ public class PacketPlayerSteer extends PacketListenerAbstract {
                 player.y = (vehiclePos.minY + vehiclePos.maxY) / 2;
                 player.z = (vehiclePos.minZ + vehiclePos.maxZ) / 2;
 
-                if (player.isSprinting != player.lastSprinting) {
+                if (player.isSprinting != player.wasSprinting) {
                     player.compensatedEntities.hasSprintingAttributeEnabled = player.isSprinting;
                 }
-                player.lastSprinting = player.isSprinting;
+                player.wasSprinting = player.isSprinting;
             }
 
             player.packetStateData.receivedSteerVehicle = true;
