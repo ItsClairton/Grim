@@ -13,7 +13,7 @@ public class ViaVersion implements Initable {
         }
 
         if (!Via.getConfig().getValues().containsKey("fix-1_21-placement-rotation")
-                && Via.getConfig().fix1_21PlacementRotation()) {
+                || !Via.getConfig().fix1_21PlacementRotation()) {
             return;
         }
 
