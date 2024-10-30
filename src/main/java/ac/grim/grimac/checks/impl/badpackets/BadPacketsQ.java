@@ -23,6 +23,11 @@ public class BadPacketsQ extends Check implements PacketCheck {
             return;
         }
 
+        // Checking if player replied first transaction, this fix falses with lagging players.
+        if (player.lastTransactionReceived.get() == 0) {
+            return;
+        }
+
         final var packet = lastWrapper(event,
                 WrapperPlayClientEntityAction.class,
                 () -> new WrapperPlayClientEntityAction(event));
