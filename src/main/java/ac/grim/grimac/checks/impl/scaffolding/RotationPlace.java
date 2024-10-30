@@ -14,9 +14,11 @@ import com.github.retrooper.packetevents.protocol.player.GameMode;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
 import com.github.retrooper.packetevents.util.Vector3d;
 import com.github.retrooper.packetevents.util.Vector3f;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 @CheckData(name = "RotationPlace")
 public class RotationPlace extends BlockPlaceCheck {
@@ -97,10 +99,10 @@ public class RotationPlace extends BlockPlaceCheck {
     private boolean didRayTraceHit(BlockPlace place) {
         final var box = new SimpleCollisionBox(place.getPlacedAgainstBlockLocation());
 
-        var possibleLookDirs = Arrays.asList(
+        List<Vector3f> possibleLookDirs = new ObjectArrayList<>(Arrays.asList(
                 new Vector3f(player.xRot, player.yRot, 0),
                 new Vector3f(player.lastXRot, player.yRot, 0)
-        );
+        ));
 
         // Start checking if player is in the block
         final var minEyeHeight = Collections.min(player.getPossibleEyeHeights());
