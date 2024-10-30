@@ -6,6 +6,7 @@ import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.anticheat.update.BlockPlace;
 import ac.grim.grimac.utils.anticheat.update.RotationUpdate;
 import ac.grim.grimac.utils.data.Pair;
+import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
 
 @CheckData(name = "DuplicateRotPlace", experimental = true)
 public class DuplicateRotPlace extends BlockPlaceCheck {
@@ -37,12 +38,14 @@ public class DuplicateRotPlace extends BlockPlaceCheck {
 
                 if (xDiff < 0.0001) {
                     final var xDiffDots = Math.abs(deltaDotsX - lastPlacedDeltaDotsX);
-                    flagAndAlert(
-                            new Pair<>("x", xDiff),
-                            new Pair<>("x-dots", xDiffDots),
-                            new Pair<>("y-delta", deltaY),
-                            new Pair<>("material", place.getMaterial()),
-                            new Pair<>("place-against", place.getPlacedAgainstMaterial()));
+                    if (place.getMaterial() != StateTypes.FIRE) {
+                        flagAndAlert(
+                                new Pair<>("x", xDiff),
+                                new Pair<>("x-dots", xDiffDots),
+                                new Pair<>("y-delta", deltaY),
+                                new Pair<>("material", place.getMaterial()),
+                                new Pair<>("place-against", place.getPlacedAgainstMaterial()));
+                    }
                 } else {
                     reward();
                 }
