@@ -33,7 +33,8 @@ public class NoFallB extends Check implements PostPredictionCheck {
         boolean invalid = player.clientClaimsLastOnGround != player.onGround;
 
         if (invalid) {
-            if (flagWithSetback()) {
+            // Checking if player replied last spawn transaction, this fix falses with lagging players.
+            if (player.getSetbackTeleportUtil().hasAcceptedSpawnTeleport && flagWithSetback()) {
                 alert(
                         new Pair<>("server", player.onGround),
                         new Pair<>("client", player.clientClaimsLastOnGround)
