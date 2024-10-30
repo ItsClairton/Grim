@@ -40,7 +40,7 @@ public class OffsetHandler extends Check implements PostPredictionCheck {
         if (completePredictionEvent.isCancelled()) return;
 
         // Short circuit out flag call
-        if ((offset >= threshold || offset >= immediateSetbackThreshold) && flag()) {
+        if ((offset >= threshold || offset >= immediateSetbackThreshold)) {
             advantageGained += offset;
 
             boolean isSetback = advantageGained >= maxAdvantage || offset >= immediateSetbackThreshold;
@@ -50,29 +50,31 @@ public class OffsetHandler extends Check implements PostPredictionCheck {
                 player.getSetbackTeleportUtil().executeViolationSetback();
             }
 
-            violations++;
+            // Checking if player replied last spawn transaction, this fix falses with lagging players.
+            if (player.getSetbackTeleportUtil().hasAcceptedSpawnTeleport && flag()) {
+                violations++;
 
-            synchronized (flags) {
-                int flagId = (flags.get() & 255) + 1; // 1-256 as possible values
+                synchronized (flags) {
+                    int flagId = (flags.get() & 255) + 1; // 1-256 as possible values
 
-                String humanFormattedOffset;
-                if (offset < 0.001) { // 1.129E-3
-                    humanFormattedOffset = String.format("%.4E", offset);
-                    // Squeeze out an extra digit here by E-03 to E-3
-                    humanFormattedOffset = humanFormattedOffset.replace("E-0", "E-");
-                } else {
-                    // 0.00112945678 -> .001129
-                    humanFormattedOffset = String.format("%6f", offset);
-                    // I like the leading zero, but removing it lets us add another digit to the end
-                    humanFormattedOffset = humanFormattedOffset.replace("0.", ".");
-                }
+                    String humanFormattedOffset;
+                    if (offset < 0.001) { // 1.129E-3
+                        humanFormattedOffset = String.format("%.4E", offset);
+                        // Squeeze out an extra digit here by E-03 to E-3
+                        humanFormattedOffset = humanFormattedOffset.replace("E-0", "E-");
+                    } else {
+                        // 0.00112945678 -> .001129
+                        humanFormattedOffset = String.format("%6f", offset);
+                        // I like the leading zero, but removing it lets us add another digit to the end
+                        humanFormattedOffset = humanFormattedOffset.replace("0.", ".");
+                    }
 
-                if(alert(new Pair<>("id", flagId), new Pair<>("offset", humanFormattedOffset))) {
-                    flags.incrementAndGet(); // This debug was sent somewhere
-                    predictionComplete.setIdentifier(flagId);
+                    if (alert(new Pair<>("id", flagId), new Pair<>("offset", humanFormattedOffset))) {
+                        flags.incrementAndGet(); // This debug was sent somewhere
+                        predictionComplete.setIdentifier(flagId);
+                    }
                 }
             }
-
 
             advantageGained = Math.min(advantageGained, maxCeiling);
         } else {
