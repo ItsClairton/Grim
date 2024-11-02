@@ -104,9 +104,15 @@ public class RotationPlace extends BlockPlaceCheck {
                 new Vector3f(player.lastXRot, player.yRot, 0)
         ));
 
-        // Start checking if player is in the block
-        final var minEyeHeight = Collections.min(player.getPossibleEyeHeights());
-        final var maxEyeHeight = Collections.max(player.getPossibleEyeHeights());
+        final var possibleEyeHeights = player.getPossibleEyeHeights();
+
+        var minEyeHeight = Double.MAX_VALUE;
+        var maxEyeHeight = Double.MIN_VALUE;
+
+        for (final var height : possibleEyeHeights) {
+            minEyeHeight = Math.min(minEyeHeight, height);
+            maxEyeHeight = Math.max(maxEyeHeight, height);
+        }
 
         final var eyePositions = new SimpleCollisionBox(
                 player.x, player.y + minEyeHeight, player.z,
@@ -135,7 +141,7 @@ public class RotationPlace extends BlockPlaceCheck {
                 .getSelf()
                 .getAttributeValue(Attributes.PLAYER_BLOCK_INTERACTION_RANGE);
 
-        for (final var d : player.getPossibleEyeHeights()) {
+        for (final var d : possibleEyeHeights) {
             for (final var lookDir : possibleLookDirs) {
                 // x, y, z are correct for the block placement even after post tick because of code elsewhere
                 final var starting = new Vector3d(player.x, player.y + d, player.z);

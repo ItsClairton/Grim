@@ -9,8 +9,6 @@ import ac.grim.grimac.utils.data.Pair;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
 
-import java.util.Collections;
-
 @CheckData(name = "PositionPlace")
 public class PositionPlace extends BlockPlaceCheck {
 
@@ -72,8 +70,15 @@ public class PositionPlace extends BlockPlaceCheck {
         // Each position represents the best case scenario to have clicked
         //
         // We will now calculate the most optimal position for the player's head to be in
-        final var minEyeHeight = Collections.min(player.getPossibleEyeHeights());
-        final var maxEyeHeight = Collections.max(player.getPossibleEyeHeights());
+        final var possibleEyeHeights = player.getPossibleEyeHeights();
+
+        var minEyeHeight = Double.MAX_VALUE;
+        var maxEyeHeight = Double.MIN_VALUE;
+
+        for (final var height : possibleEyeHeights) {
+            minEyeHeight = Math.min(minEyeHeight, height);
+            maxEyeHeight = Math.max(maxEyeHeight, height);
+        }
 
         final var movementThreshold = !player.packetStateData.didLastMovementIncludePosition || !hasIdlePacket
                 ? player.getMovementThreshold() :

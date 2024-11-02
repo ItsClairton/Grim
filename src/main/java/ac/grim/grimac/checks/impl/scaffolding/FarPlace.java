@@ -27,7 +27,9 @@ public class FarPlace extends BlockPlaceCheck {
         final var blockPos = place.getPlacedAgainstBlockLocation();
 
         var currentReach = Double.MAX_VALUE;
-        for (final var d : player.getPossibleEyeHeights()) {
+
+        final var possibleEyeHeights = player.getPossibleEyeHeights();
+        for (final var d : possibleEyeHeights) {
             final var box = new SimpleCollisionBox(blockPos);
             final var eyes = new Vector(player.x, player.y + d, player.z);
             final var best = VectorUtils.cutBoxToVector(eyes, box);
