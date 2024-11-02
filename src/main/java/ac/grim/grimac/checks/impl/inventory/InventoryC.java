@@ -32,7 +32,7 @@ public class InventoryC extends Check implements PacketCheck {
             return;
         }
 
-        if (!flagAndAlert(new Pair<>("window-id", wrapper.getWindowId()),
+        if (player.getSetbackTeleportUtil().hasAcceptedSpawnTeleport && !flagAndAlert(new Pair<>("window-id", wrapper.getWindowId()),
                 new Pair<>("expected-window-id", handler.getWindowId()),
                 new Pair<>("button", wrapper.getButton()),
                 new Pair<>("slot", wrapper.getSlot()))) {
