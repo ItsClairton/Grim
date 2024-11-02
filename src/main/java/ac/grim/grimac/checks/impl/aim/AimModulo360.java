@@ -19,7 +19,7 @@ public class AimModulo360 extends Check implements RotationCheck {
 
     @Override
     public void process(final RotationUpdate rotationUpdate) {
-        if (player.packetStateData.lastPacketWasTeleport) {
+        if (player.packetStateData.lastPacketWasTeleport || !player.getSetbackTeleportUtil().hasAcceptedSpawnTeleport) {
             lastDeltaYaw = rotationUpdate.getDeltaXRot();
             return;
         }
