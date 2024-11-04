@@ -86,12 +86,12 @@ tasks {
         jvmArgs("-XX:+AllowEnhancedClassRedefinition",
             "-Dfile.encoding=UTF-8",
             "-Dio.netty.leakDetection.level=paranoid",
-            "-Xmx250M",
-            "-Xms250M")
+            "-Xmx1G",
+            "-Xms1G")
 
         downloadPlugins {
-            hangar("ViaVersion", "5.0.5")
-            hangar("ViaBackwards", "5.0.4")
+            hangar("ViaVersion", "5.1.1")
+            hangar("ViaBackwards", "5.1.1")
             hangar("ViaRewind", "4.0.3")
 
             url("https://ci.lucko.me/job/spark/455/artifact/spark-bukkit/build/libs/spark-1.10.109-bukkit.jar")

@@ -5,59 +5,78 @@ import ac.grim.grimac.checks.type.BlockPlaceCheck;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.anticheat.update.BlockPlace;
 import ac.grim.grimac.utils.anticheat.update.RotationUpdate;
+import ac.grim.grimac.utils.collisions.datatypes.SimpleCollisionBox;
 import ac.grim.grimac.utils.data.Pair;
-import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
+import ac.grim.grimac.utils.nmsutil.Materials;
 
 @CheckData(name = "DuplicateRotPlace", experimental = true)
 public class DuplicateRotPlace extends BlockPlaceCheck {
 
-    private float deltaX, deltaY;
+    private boolean rotated = true;
 
-    private double deltaDotsX;
-    private boolean rotated = false;
+    private float lastRotateYaw = Float.MIN_VALUE;
+    private float lastPlacedYaw = Float.MIN_VALUE;
+    private float lastPlacedDeltaYaw = Float.MIN_VALUE;
 
     public DuplicateRotPlace(GrimPlayer player) {
         super(player);
     }
 
     @Override
-    public void process(final RotationUpdate rotationUpdate) {
-        deltaX = rotationUpdate.getDeltaXRotABS();
-        deltaY = rotationUpdate.getDeltaYRotABS();
-        deltaDotsX = rotationUpdate.getProcessor().deltaDotsX;
+    public void process(RotationUpdate rotation) {
+        lastRotateYaw = rotation.getTo().getYaw();
+
         rotated = true;
     }
 
-    private float lastPlacedDeltaX;
-    private double lastPlacedDeltaDotsX;
-
+    @Override
     public void onPostFlyingBlockPlace(BlockPlace place) {
-        if (rotated) {
-            if (deltaX > 2) {
-                final var xDiff = Math.abs(deltaX - lastPlacedDeltaX);
-
-                if (xDiff < 0.0001) {
-                    final var xDiffDots = Math.abs(deltaDotsX - lastPlacedDeltaDotsX);
-                    if (place.getMaterial() != StateTypes.FIRE) {
-                        flagAndAlert(
-                                new Pair<>("x", xDiff),
-                                new Pair<>("x-dots", xDiffDots),
-                                new Pair<>("y-delta", deltaY),
-                                new Pair<>("material", place.getMaterial()),
-                                new Pair<>("place-against", place.getPlacedAgainstMaterial()));
-                    }
-                } else {
-                    reward();
-                }
-            } else {
-                reward();
-            }
-
-            this.lastPlacedDeltaX = deltaX;
-            this.lastPlacedDeltaDotsX = deltaDotsX;
-            rotated = false;
+        if (!rotated || !place.isBlock()) {
+            return;
         }
-    }
 
+        if (lastPlacedYaw == Float.MIN_VALUE) {
+            lastPlacedYaw = lastRotateYaw;
+            rotated = false;
+            return;
+        }
+
+        final var deltaYaw = Math.abs(lastPlacedYaw - lastRotateYaw);
+
+        lastPlacedYaw = lastRotateYaw;
+        rotated = false;
+
+        if (lastPlacedDeltaYaw == Float.MIN_VALUE) {
+            lastPlacedDeltaYaw = deltaYaw;
+            return;
+        }
+
+        if (deltaYaw != lastPlacedDeltaYaw) {
+            lastPlacedDeltaYaw = deltaYaw;
+            return;
+        }
+
+        if (Materials.isClientSideInteractable(place.getPlacedAgainstMaterial())) {
+            return;
+        }
+
+        if (place.isReplaceClicked()) {
+            return;
+        }
+
+        final var existingState = place.getExistingBlockData();
+        if (!existingState.getType().isAir()) {
+            return;
+        }
+
+        final var pos = place.getPlacedBlockPos();
+        if (player.boundingBox.isIntersected(new SimpleCollisionBox(pos))) {
+            return;
+        }
+
+        flagAndAlert(new Pair<>("material", place.getMaterial()),
+                new Pair<>("place-against", place.getPlacedAgainstMaterial()),
+                new Pair<>("existing-block", existingState));
+    }
 
 }
