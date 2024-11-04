@@ -21,7 +21,7 @@ public class PositionPlace extends BlockPlaceCheck {
     @Override
     public void onBlockPlace(final BlockPlace place) {
         final var material = place.getMaterial();
-        if (material == StateTypes.FIRE || material == StateTypes.SCAFFOLDING) {
+        if (!place.isBlock() || material == StateTypes.SCAFFOLDING) {
             return;
         }
 

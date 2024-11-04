@@ -20,7 +20,7 @@ public class FarPlace extends BlockPlaceCheck {
 
     @Override
     public void onBlockPlace(final BlockPlace place) {
-        if (place.getMaterial() == StateTypes.SCAFFOLDING) {
+        if (!place.isBlock() || place.getMaterial() == StateTypes.SCAFFOLDING) {
             return;
         }
 

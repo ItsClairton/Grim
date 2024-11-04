@@ -80,7 +80,7 @@ public class BlockPlace {
         this.face = face;
         this.itemStack = itemStack;
         if (itemStack.getType().getPlacedType() == null) {
-            this.material = StateTypes.FIRE;
+            this.material = StateTypes.AIR;
             this.block = false;
         } else {
             this.material = itemStack.getType().getPlacedType();

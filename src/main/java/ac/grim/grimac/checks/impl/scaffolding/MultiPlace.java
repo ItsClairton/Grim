@@ -32,6 +32,10 @@ public class MultiPlace extends BlockPlaceCheck {
     @SuppressWarnings("unchecked")
     @Override
     public void onBlockPlace(final BlockPlace place) {
+        if (!place.isBlock()) {
+            return;
+        }
+
         final var face = place.getDirection();
         final var cursor = place.getCursor();
         final var pos = place.getPlacedAgainstBlockLocation();

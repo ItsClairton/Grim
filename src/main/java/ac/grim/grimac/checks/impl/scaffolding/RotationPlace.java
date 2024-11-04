@@ -35,7 +35,7 @@ public class RotationPlace extends BlockPlaceCheck {
 
     @Override
     public void onBlockPlace(BlockPlace place) {
-        if (place.getMaterial() == StateTypes.SCAFFOLDING) {
+        if (!place.isBlock() || place.getMaterial() == StateTypes.SCAFFOLDING) {
             return;
         }
 
@@ -67,7 +67,7 @@ public class RotationPlace extends BlockPlaceCheck {
 
     @Override
     public void onPostFlyingBlockPlace(BlockPlace place) {
-        if (place.getMaterial() == StateTypes.SCAFFOLDING) {
+        if (!place.isBlock() || place.getMaterial() == StateTypes.SCAFFOLDING) {
             return;
         }
 
