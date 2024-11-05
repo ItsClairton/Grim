@@ -218,7 +218,10 @@ public class ExplosionHandler extends Check implements PostPredictionCheck {
     }
 
     private void handleTransactionPacket(int transactionID) {
-        if (firstBreadMap.isEmpty()) return;
+        if (firstBreadMap.isEmpty()) {
+            return;
+        }
+        
         VelocityData data = firstBreadMap.first();
         while (data != null) {
             if (data.transaction == transactionID) { // First bread explosion
