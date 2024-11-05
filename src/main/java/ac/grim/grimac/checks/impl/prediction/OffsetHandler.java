@@ -46,7 +46,7 @@ public class OffsetHandler extends Check implements PostPredictionCheck {
             boolean isSetback = advantageGained >= maxAdvantage || offset >= immediateSetbackThreshold;
             giveOffsetLenienceNextTick(offset);
 
-            if (isSetback) {
+            if (isSetback && shouldModifyPackets()) {
                 player.getSetbackTeleportUtil().executeViolationSetback();
             }
 

@@ -5,6 +5,8 @@ prefix: "&d&l[AC]"
 
 alerts-enabled: "%prefix% &aOs alertas foram ativados com sucesso."
 alerts-disabled: "%prefix% &cOs alertas foram desativados com sucesso."
+toggle-enabled: "%prefix% &aAs correções para %player% foram ativados com sucesso."
+toggle-disabled: "%prefix% &cAs correções para %player% foram desativados com sucesso."
 verbose-enabled: "%prefix% &aOs alertas sem buffering foram ativados com sucesso."
 verbose-disabled: "%prefix% &cOs alertas sem buffering foram desativados com sucesso."
 console-specify-target: "%prefix% &cVocê deve especificar um Jogador."
