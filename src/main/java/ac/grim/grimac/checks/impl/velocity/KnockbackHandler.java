@@ -181,7 +181,10 @@ public class KnockbackHandler extends Check implements PostPredictionCheck {
 
         if (player.predictedVelocity.isFirstBreadKb()) {
             firstBreadOnlyKnockback = null;
-            firstBreadMap.dequeue(); // Remove from map so we don't pull it again
+
+            if (!firstBreadMap.isEmpty()) {
+                firstBreadMap.dequeue(); // Remove from map so we don't pull it again
+            }
         }
 
         if (wasZero || player.predictedVelocity.isKnockback()) {

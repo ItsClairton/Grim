@@ -31,6 +31,8 @@ public class Check implements AbstractCheck {
     @Setter
     private boolean isEnabled;
 
+    private @Getter @Setter boolean autoFix = true;
+
     @Override
     public boolean isExperimental() {
         return experimental;
@@ -57,7 +59,7 @@ public class Check implements AbstractCheck {
     }
 
     public boolean shouldModifyPackets() {
-        return isEnabled && !player.disableGrim;
+        return isEnabled && autoFix && !player.disableGrim;
     }
 
     @SafeVarargs
