@@ -88,12 +88,13 @@ public class TimerCheck extends Check implements PacketCheck {
                     event.setCancelled(true);
                 }
 
-                if (isAboveSetbackVl()) player.getSetbackTeleportUtil().executeNonSimulatingSetback();
+                if (isAboveSetbackVl() && shouldModifyPackets()) {
+                    player.getSetbackTeleportUtil().executeNonSimulatingSetback();
+                }
 
                 if (wouldFailNormal) {
                     // Only alert if we would fail without adjusted limit
-                    alert(new Pair<>("difference", timerBalanceRealTime - System.nanoTime() + " ns")
-                    );
+                    alert(new Pair<>("difference", timerBalanceRealTime - System.nanoTime() + " ns"));
                 }
             }
 

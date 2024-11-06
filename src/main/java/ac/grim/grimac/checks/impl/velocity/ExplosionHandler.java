@@ -192,7 +192,7 @@ public class ExplosionHandler extends Check implements PostPredictionCheck {
         if (player.likelyExplosions != null) {
             if (player.likelyExplosions.offset > offsetToFlag) {
                 if (flag()) {
-                    if (getViolations() > setbackVL) {
+                    if (getViolations() > setbackVL && shouldModifyPackets()) {
                         player.getSetbackTeleportUtil().executeViolationSetback();
                     }
                 }
