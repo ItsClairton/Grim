@@ -18,6 +18,8 @@ public class DuplicateRotPlace extends BlockPlaceCheck {
     private float lastPlacedYaw = Float.MIN_VALUE;
     private float lastPlacedDeltaYaw = Float.MIN_VALUE;
 
+    private byte buffer = 0;
+
     public DuplicateRotPlace(GrimPlayer player) {
         super(player);
     }
@@ -30,7 +32,7 @@ public class DuplicateRotPlace extends BlockPlaceCheck {
     }
 
     @Override
-    public void onPostFlyingBlockPlace(BlockPlace place) {
+    public void onBlockPlace(BlockPlace place) {
         if (!rotated || !place.isBlock()) {
             return;
         }
@@ -53,6 +55,7 @@ public class DuplicateRotPlace extends BlockPlaceCheck {
 
         if (deltaYaw != lastPlacedDeltaYaw) {
             lastPlacedDeltaYaw = deltaYaw;
+            buffer = 0;
             return;
         }
 
@@ -74,9 +77,23 @@ public class DuplicateRotPlace extends BlockPlaceCheck {
             return;
         }
 
-        flagAndAlert(new Pair<>("material", place.getMaterial()),
+        buffer++;
+
+        if (buffer < 5) {
+            return;
+        }
+
+        if (!flagAndAlert(new Pair<>("material", place.getMaterial()),
                 new Pair<>("place-against", place.getPlacedAgainstMaterial()),
-                new Pair<>("existing-block", existingState));
+                new Pair<>("existing-block", existingState))) {
+            return;
+        }
+
+        if (!shouldModifyPackets()) {
+            return;
+        }
+
+        place.resync();
     }
 
 }
