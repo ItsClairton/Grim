@@ -10,6 +10,7 @@ import com.github.retrooper.packetevents.util.TimeStampMode;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 public class PacketEventsLoader implements Initable {
 
