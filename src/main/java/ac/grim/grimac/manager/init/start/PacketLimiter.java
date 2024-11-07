@@ -6,6 +6,7 @@ import ac.grim.grimac.player.GrimPlayer;
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;
 
 public class PacketLimiter implements Initable {
+
     @Override
     public void start() {
         FoliaScheduler.getAsyncScheduler().runAtFixedRate(GrimAPI.INSTANCE.getPlugin(), (dummy) -> {
@@ -15,4 +16,5 @@ public class PacketLimiter implements Initable {
             }
         }, 1, 20);
     }
+
 }
