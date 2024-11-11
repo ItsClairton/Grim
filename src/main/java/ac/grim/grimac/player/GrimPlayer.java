@@ -259,6 +259,16 @@ public class GrimPlayer implements GrimUser {
         }
     }
 
+    public void onPacketCancel() {
+        if (spamThreshold != -1 && cancelledPackets.incrementAndGet() > spamThreshold) {
+            LogUtil.info("Disconnecting " + getName() + " for spamming invalid packets, packets cancelled within a second "
+                    + cancelledPackets);
+
+            disconnect(Component.translatable("disconnect.closed"));
+            cancelledPackets.set(0);
+        }
+    }
+
     public Set<VectorData> getPossibleVelocities() {
         Set<VectorData> set = new ObjectOpenHashSet<>();
 
