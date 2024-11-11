@@ -95,31 +95,21 @@ public class BasePacketWorldReader extends PacketListenerAbstract {
         // Only exists in 1.7 and 1.8
         WrapperPlayServerChunkDataBulk chunkData = new WrapperPlayServerChunkDataBulk(event);
         for (int i = 0; i < chunkData.getChunks().length; i++) {
-            addChunkToCache(event, player, chunkData.getChunks()[i], true, chunkData.getX()[i], chunkData.getZ()[i]);
+            addChunkToCache(player, chunkData.getChunks()[i], true, chunkData.getX()[i], chunkData.getZ()[i]);
         }
     }
 
     public void handleMapChunk(GrimPlayer player, PacketSendEvent event) {
         WrapperPlayServerChunkData chunkData = new WrapperPlayServerChunkData(event);
-        addChunkToCache(event, player, chunkData.getColumn().getChunks(), chunkData.getColumn().isFullChunk(), chunkData.getColumn().getX(), chunkData.getColumn().getZ());
+        addChunkToCache(player, chunkData.getColumn().getChunks(), chunkData.getColumn().isFullChunk(), chunkData.getColumn().getX(), chunkData.getColumn().getZ());
         event.setLastUsedWrapper(null);
     }
 
-    public void addChunkToCache(PacketSendEvent event, GrimPlayer player, BaseChunk[] chunks, boolean isGroundUp, int chunkX, int chunkZ) {
-        double chunkCenterX = (chunkX << 4) + 8;
-        double chunkCenterZ = (chunkZ << 4) + 8;
-        boolean shouldPostTrans = Math.abs(player.x - chunkCenterX) < 16 && Math.abs(player.z - chunkCenterZ) < 16;
-
-        for (TeleportData teleports : player.getSetbackTeleportUtil().pendingTeleports) {
-            if (teleports.getFlags().getMask() != 0) {
-                continue; // Worse that will happen is people will get an extra setback...
-            }
-            shouldPostTrans = shouldPostTrans || (Math.abs(teleports.getLocation().getX() - chunkCenterX) < 16 && Math.abs(teleports.getLocation().getZ() - chunkCenterZ) < 16);
+    public void addChunkToCache(GrimPlayer player, BaseChunk[] chunks, boolean isGroundUp, int chunkX, int chunkZ) {
+        if (playerIsAffected(player, chunkX, chunkZ)) {
+            player.sendTransaction(); // Player is in this chunk
         }
 
-        if (shouldPostTrans) {
-            event.getTasksAfterSend().add(player::sendTransaction); // Player is in this unloaded chunk
-        }
         if (isGroundUp) {
             Column column = new Column(chunkX, chunkZ, chunks, player.lastTransactionSent.get());
             player.compensatedWorld.addToCache(column, chunkX, chunkZ);
@@ -141,6 +131,11 @@ public class BasePacketWorldReader extends PacketListenerAbstract {
 
     public void unloadChunk(GrimPlayer player, int x, int z) {
         if (player == null) return;
+
+        if (playerIsAffected(player, x, z)) { // Player is in this chunk
+            player.sendTransaction();
+        }
+
         player.compensatedWorld.removeChunkLater(x, z);
     }
 
@@ -174,4 +169,31 @@ public class BasePacketWorldReader extends PacketListenerAbstract {
             player.latencyUtils.addRealTimeTask(player.lastTransactionSent.get(), () -> player.compensatedWorld.updateBlock(blockChange.getX(), blockChange.getY(), blockChange.getZ(), blockChange.getBlockId()));
         }
     }
+
+    private boolean playerIsAffected(GrimPlayer player, int chunkX, int chunkZ) {
+        if (player == null) {
+            return false;
+        }
+
+        final var chunkCenterX = (chunkX << 4) + 8;
+        final var chunkCenterZ = (chunkZ << 4) + 8;
+
+        if (Math.abs(player.x - chunkCenterX) < 16 && Math.abs(player.z - chunkCenterZ) < 16) {
+            return true;
+        }
+
+        for (TeleportData teleports : player.getSetbackTeleportUtil().pendingTeleports) {
+            if (teleports.getFlags().getMask() != 0) {
+                continue; // Worse that will happen is people will get an extra setback...
+            }
+
+            if ((Math.abs(teleports.getLocation().getX() - chunkCenterX) < 16
+                    && Math.abs(teleports.getLocation().getZ() - chunkCenterZ) < 16)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
 }
