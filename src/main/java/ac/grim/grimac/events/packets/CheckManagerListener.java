@@ -567,7 +567,11 @@ public class CheckManagerListener extends PacketListenerAbstract {
         player.checkManager.onPacketReceive(event);
 
         if (event.isCancelled()) {
-            player.onPacketCancel();
+            final var packetType = event.getPacketType();
+
+            if (packetType != PacketType.Play.Client.WINDOW_CONFIRMATION && packetType != PacketType.Play.Client.PONG) {
+                player.onPacketCancel();
+            }
         }
 
         if (player.packetStateData.cancelDuplicatePacket) {
