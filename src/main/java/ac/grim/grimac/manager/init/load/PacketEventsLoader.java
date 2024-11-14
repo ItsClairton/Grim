@@ -10,7 +10,6 @@ import com.github.retrooper.packetevents.util.TimeStampMode;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 public class PacketEventsLoader implements Initable {
 
@@ -23,7 +22,8 @@ public class PacketEventsLoader implements Initable {
 
         final var serverVersion = PacketEvents.getAPI().getServerManager().getVersion().toClientVersion();
         final var candidateVersions = Arrays.stream(ClientVersion.values())
-                .filter(version -> version.isOlderThanOrEquals(serverVersion))
+                .filter(version -> version.isNewerThanOrEquals(ClientVersion.V_1_7_10) &&
+                        version.isOlderThanOrEquals(serverVersion))
                 .toList()
                 .toArray(new ClientVersion[0]);
 
