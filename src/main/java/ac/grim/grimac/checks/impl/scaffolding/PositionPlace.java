@@ -53,7 +53,10 @@ public class PositionPlace extends BlockPlaceCheck {
             return;
         }
 
-        if (!flagAndAlert(new Pair<>("material", material), new Pair<>("direction", place.getDirection()))) {
+        if (!flagAndAlert(
+                new Pair<>("place-against", place.getPlacedAgainstMaterial()),
+                new Pair<>("material", material),
+                new Pair<>("direction", place.getDirection()))) {
             return;
         }
 
