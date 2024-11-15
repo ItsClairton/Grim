@@ -60,20 +60,28 @@ public class DuplicateRotPlace extends BlockPlaceCheck {
         }
 
         if (Materials.isClientSideInteractable(place.getPlacedAgainstMaterial())) {
+            lastPlacedDeltaYaw = deltaYaw;
+            buffer = 0;
             return;
         }
 
         if (place.isReplaceClicked()) {
+            lastPlacedDeltaYaw = deltaYaw;
+            buffer = 0;
             return;
         }
 
         final var existingState = place.getExistingBlockData();
         if (!existingState.getType().isAir()) {
+            lastPlacedDeltaYaw = deltaYaw;
+            buffer = 0;
             return;
         }
 
         final var pos = place.getPlacedBlockPos();
         if (player.boundingBox.isIntersected(new SimpleCollisionBox(pos))) {
+            lastPlacedDeltaYaw = deltaYaw;
+            buffer = 0;
             return;
         }
 
