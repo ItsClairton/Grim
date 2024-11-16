@@ -45,12 +45,20 @@ public class OffsetHandler extends Check implements PostPredictionCheck {
             boolean isSetback = advantageGained >= maxAdvantage || offset >= immediateSetbackThreshold;
             giveOffsetLenienceNextTick(offset);
 
+            final var previousState = player.getSetbackTeleportUtil().hasAcceptedSpawnTeleport
+                    && !player.getSetbackTeleportUtil().blockOffsets;
+
             if (isSetback && shouldModifyPackets()) {
-                player.getSetbackTeleportUtil().executeViolationSetback();
+                // 1 second late, we will force the player to sync again.
+                if (player.getTransactionPing() >= 1000) {
+                    player.getSetbackTeleportUtil().executeForceResync();
+                } else {
+                    player.getSetbackTeleportUtil().executeViolationSetback();
+                }
             }
 
             // Checking if player replied last spawn transaction, this fix falses with lagging players.
-            if (player.getSetbackTeleportUtil().hasAcceptedSpawnTeleport && flag()) {
+            if (previousState && flag()) {
                 violations++;
 
                 synchronized (flags) {

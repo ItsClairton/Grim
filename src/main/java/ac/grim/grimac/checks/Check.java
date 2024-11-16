@@ -30,7 +30,8 @@ public class Check implements AbstractCheck {
     @Setter
     private boolean isEnabled;
 
-    private @Getter @Setter boolean autoFix = true;
+    private @Getter
+    @Setter boolean autoFix = true;
 
     @Override
     public boolean isExperimental() {
@@ -125,9 +126,16 @@ public class Check implements AbstractCheck {
     }
 
     public boolean setbackIfAboveSetbackVL() {
-        if (getViolations() > setbackVL) {
-            return player.getSetbackTeleportUtil().executeViolationSetback();
+        if (getViolations() > setbackVL && shouldModifyPackets()) {
+            // 1 second late, we will force the player to sync again.
+            if (player.getTransactionPing() >= 1000) {
+                player.getSetbackTeleportUtil().executeForceResync();
+                return true;
+            } else {
+                return player.getSetbackTeleportUtil().executeViolationSetback();
+            }
         }
+
         return false;
     }
 
