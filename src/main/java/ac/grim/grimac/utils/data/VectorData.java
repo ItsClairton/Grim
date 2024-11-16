@@ -1,9 +1,8 @@
 package ac.grim.grimac.utils.data;
 
+import java.util.Objects;
 import lombok.Getter;
 import org.bukkit.util.Vector;
-
-import java.util.Objects;
 
 public class VectorData {
     public VectorType vectorType;

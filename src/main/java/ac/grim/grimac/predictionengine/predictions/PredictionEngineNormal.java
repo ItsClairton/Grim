@@ -11,11 +11,9 @@ import com.github.retrooper.packetevents.protocol.item.type.ItemTypes;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import com.github.retrooper.packetevents.protocol.potion.PotionTypes;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
-import org.bukkit.util.Vector;
-
 import java.util.HashSet;
-import java.util.OptionalInt;
 import java.util.Set;
+import org.bukkit.util.Vector;
 
 public class PredictionEngineNormal extends PredictionEngine {
 

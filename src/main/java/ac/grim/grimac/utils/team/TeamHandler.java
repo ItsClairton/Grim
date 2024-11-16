@@ -8,7 +8,6 @@ import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerTeams;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
-
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;

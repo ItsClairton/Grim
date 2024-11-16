@@ -9,11 +9,10 @@ import co.aikar.commands.annotation.CommandAlias;
 import co.aikar.commands.annotation.CommandPermission;
 import co.aikar.commands.annotation.Subcommand;
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;
-import org.bukkit.command.CommandSender;
-
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import org.bukkit.command.CommandSender;
 
 @CommandAlias("ac")
 public class LogSubCommand extends BaseCommand {

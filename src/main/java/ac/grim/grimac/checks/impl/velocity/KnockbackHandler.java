@@ -13,12 +13,11 @@ import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.util.Vector3d;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerEntityVelocity;
 import it.unimi.dsi.fastutil.objects.ObjectArrayFIFOQueue;
+import java.util.Deque;
+import java.util.LinkedList;
 import lombok.Getter;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Deque;
-import java.util.LinkedList;
 
 // We are making a velocity sandwich between two pieces of transaction packets (bread)
 @CheckData(name = "AntiKB", alternativeName = "AntiKnockback", configName = "Knockback", setback = 10, decay = 0.025)

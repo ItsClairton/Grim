@@ -14,9 +14,8 @@ import ac.grim.grimac.utils.nmsutil.Riptide;
 import com.github.retrooper.packetevents.protocol.attribute.Attributes;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import org.bukkit.util.Vector;
-
 import java.util.*;
+import org.bukkit.util.Vector;
 
 public class PredictionEngine {
 

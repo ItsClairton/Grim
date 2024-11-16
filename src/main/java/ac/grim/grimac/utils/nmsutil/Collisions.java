@@ -25,14 +25,13 @@ import com.github.retrooper.packetevents.util.Vector3d;
 import it.unimi.dsi.fastutil.floats.FloatArraySet;
 import it.unimi.dsi.fastutil.floats.FloatArrays;
 import it.unimi.dsi.fastutil.floats.FloatSet;
-import org.bukkit.Location;
-import org.bukkit.util.Vector;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import org.bukkit.Location;
+import org.bukkit.util.Vector;
 
 public class Collisions {
     private static final double COLLISION_EPSILON = 1.0E-7;

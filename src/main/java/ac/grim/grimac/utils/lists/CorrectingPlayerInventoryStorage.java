@@ -13,11 +13,10 @@ import io.github.retrooper.packetevents.util.SpigotConversionUtil;
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;
 import it.unimi.dsi.fastutil.ints.Int2IntArrayMap;
 import it.unimi.dsi.fastutil.ints.Int2IntMap;
-import org.bukkit.Material;
-import org.bukkit.inventory.InventoryView;
-
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import org.bukkit.Material;
+import org.bukkit.inventory.InventoryView;
 
 /**
  * This is responsible for lag compensation of the player's inventory
@@ -25,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * Or copy (and debug) over around 5k lines of code to accomplish inventories
  * Grim uses a hybrid system for inventories - we lag compensate but rely on the server
  * for the ultimate source of truth, and resync if what we found is different from what the server sees
- *
+ * <p>
  * This also patches most desync's that happen with inventories on some versions like 1.8 or
  * other desync's introduced by mojang or viabackwards
  *

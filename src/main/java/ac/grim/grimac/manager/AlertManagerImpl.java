@@ -3,12 +3,11 @@ package ac.grim.grimac.manager;
 import ac.grim.grimac.GrimAPI;
 import ac.grim.grimac.api.alerts.AlertManager;
 import ac.grim.grimac.utils.anticheat.MessageUtil;
-import lombok.Getter;
-import org.bukkit.entity.Player;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import lombok.Getter;
+import org.bukkit.entity.Player;
 
 public class AlertManagerImpl implements AlertManager {
     @Getter

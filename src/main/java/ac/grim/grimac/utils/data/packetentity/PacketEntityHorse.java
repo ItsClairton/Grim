@@ -8,7 +8,6 @@ import com.github.retrooper.packetevents.protocol.attribute.Attributes;
 import com.github.retrooper.packetevents.protocol.entity.type.EntityType;
 import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
-
 import java.util.UUID;
 
 public class PacketEntityHorse extends PacketEntityTrackXRot {

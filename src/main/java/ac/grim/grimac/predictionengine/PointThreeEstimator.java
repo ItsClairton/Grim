@@ -16,12 +16,10 @@ import com.github.retrooper.packetevents.protocol.world.states.WrappedBlockState
 import com.github.retrooper.packetevents.protocol.world.states.defaulttags.BlockTags;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateType;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.util.Vector;
-
-import java.util.OptionalInt;
-import java.util.Set;
 
 /**
  * A lot of care was put into handling all the stupid stuff occurring between events

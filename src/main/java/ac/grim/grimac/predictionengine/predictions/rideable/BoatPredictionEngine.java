@@ -13,11 +13,10 @@ import ac.grim.grimac.utils.nmsutil.GetBoundingBox;
 import com.github.retrooper.packetevents.protocol.world.states.WrappedBlockState;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateType;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
-import org.bukkit.util.Vector;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import org.bukkit.util.Vector;
 
 public class BoatPredictionEngine extends PredictionEngine {
     public BoatPredictionEngine(GrimPlayer player) {

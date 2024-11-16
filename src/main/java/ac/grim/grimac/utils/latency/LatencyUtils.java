@@ -3,7 +3,6 @@ package ac.grim.grimac.utils.latency;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.data.Pair;
 import com.github.retrooper.packetevents.netty.channel.ChannelHelper;
-
 import java.util.LinkedList;
 import java.util.ListIterator;
 

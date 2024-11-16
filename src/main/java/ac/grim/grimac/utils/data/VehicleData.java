@@ -2,7 +2,6 @@ package ac.grim.grimac.utils.data;
 
 import ac.grim.grimac.utils.enums.BoatEntityStatus;
 import com.github.retrooper.packetevents.util.Vector3d;
-
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class VehicleData {

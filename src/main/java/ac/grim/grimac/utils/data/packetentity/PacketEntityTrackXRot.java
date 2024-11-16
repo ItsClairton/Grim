@@ -2,7 +2,6 @@ package ac.grim.grimac.utils.data.packetentity;
 
 import ac.grim.grimac.player.GrimPlayer;
 import com.github.retrooper.packetevents.protocol.entity.type.EntityType;
-
 import java.util.UUID;
 
 // We use simple interpolation here to be "close enough"

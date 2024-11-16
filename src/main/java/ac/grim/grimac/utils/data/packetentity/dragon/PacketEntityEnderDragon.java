@@ -4,7 +4,6 @@ import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.data.packetentity.PacketEntity;
 import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

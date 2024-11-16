@@ -2,43 +2,17 @@ package ac.grim.grimac.checks.impl.movement;
 
 import ac.grim.grimac.checks.Check;
 import ac.grim.grimac.checks.CheckData;
-import ac.grim.grimac.checks.type.PacketCheck;
 import ac.grim.grimac.checks.type.PostPredictionCheck;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.anticheat.update.PredictionComplete;
 import ac.grim.grimac.utils.data.Pair;
-import com.github.retrooper.packetevents.event.PacketReceiveEvent;
-import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
-import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientEntityAction;
 
 @CheckData(name = "NoSlowC", setback = 5, experimental = true)
-public class NoSlowC extends Check implements PostPredictionCheck, PacketCheck {
+public class NoSlowC extends Check implements PostPredictionCheck {
+
     public NoSlowC(GrimPlayer player) {
         super(player);
-    }
-
-    public boolean startedSprintingBeforeSlowMovement = false;
-
-    @Override
-    public void onPacketReceive(PacketReceiveEvent event) {
-        if (!startedSprintingBeforeSlowMovement) {
-            return;
-        }
-
-        if (event.getPacketType() != PacketType.Play.Client.ENTITY_ACTION) {
-            return;
-        }
-
-        final var packet = lastWrapper(event,
-                WrapperPlayClientEntityAction.class,
-                () -> new WrapperPlayClientEntityAction(event));
-
-        if (packet.getAction() != WrapperPlayClientEntityAction.Action.START_SPRINTING) {
-            return;
-        }
-
-        startedSprintingBeforeSlowMovement = false;
     }
 
     @Override
@@ -51,8 +25,7 @@ public class NoSlowC extends Check implements PostPredictionCheck, PacketCheck {
             final var client = player.getClientVersion();
 
             // https://bugs.mojang.com/browse/MC-152728
-            if (startedSprintingBeforeSlowMovement && client.isNewerThanOrEquals(ClientVersion.V_1_14_2)) {
-                reward();
+            if (client.isNewerThanOrEquals(ClientVersion.V_1_14_2)) {
                 return;
             }
 

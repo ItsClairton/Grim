@@ -13,6 +13,8 @@ import ac.grim.grimac.utils.anticheat.MessageUtil;
 import ac.grim.grimac.utils.data.Pair;
 import github.scarsz.configuralize.DynamicConfig;
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;
+import java.util.*;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import lombok.Setter;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -21,9 +23,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import java.util.*;
-import java.util.stream.Collectors;
 
 public class PunishmentManager {
     GrimPlayer player;

@@ -1,17 +1,16 @@
 package ac.grim.grimac.utils.data.attribute;
 
+import static ac.grim.grimac.utils.latency.CompensatedEntities.SPRINTING_MODIFIER_UUID;
+
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.data.primitive.Double2DoubleFunction;
 import ac.grim.grimac.utils.math.GrimMath;
 import com.github.retrooper.packetevents.protocol.attribute.Attribute;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerUpdateAttributes;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.List;
 import java.util.function.BiFunction;
-
-import static ac.grim.grimac.utils.latency.CompensatedEntities.SPRINTING_MODIFIER_UUID;
+import org.jetbrains.annotations.Nullable;
 
 public final class ValuedAttribute {
 

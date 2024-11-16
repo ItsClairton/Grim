@@ -2,7 +2,6 @@ package ac.grim.grimac.utils;
 
 import com.github.retrooper.packetevents.event.ProtocolPacketEvent;
 import com.github.retrooper.packetevents.wrapper.PacketWrapper;
-
 import java.util.function.Supplier;
 
 public class PacketUtil {

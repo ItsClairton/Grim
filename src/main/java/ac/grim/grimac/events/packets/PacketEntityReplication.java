@@ -26,7 +26,6 @@ import com.github.retrooper.packetevents.wrapper.play.server.*;
 import io.github.retrooper.packetevents.util.viaversion.ViaVersionUtil;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

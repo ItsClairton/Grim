@@ -8,7 +8,6 @@ import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import com.github.retrooper.packetevents.util.PEVersions;
 import com.github.retrooper.packetevents.util.TimeStampMode;
 import io.github.retrooper.packetevents.factory.spigot.SpigotPacketEventsBuilder;
-
 import java.util.Arrays;
 
 public class PacketEventsLoader implements Initable {

@@ -7,14 +7,12 @@ import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.netty.channel.ChannelHelper;
 import com.github.retrooper.packetevents.protocol.player.User;
 import io.github.retrooper.packetevents.util.GeyserUtil;
-import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
-
-import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.annotation.Nullable;
+import org.bukkit.entity.Player;
 
 public class PlayerDataManager {
     private final ConcurrentHashMap<User, GrimPlayer> playerDataMap = new ConcurrentHashMap<>();

@@ -1,11 +1,10 @@
 package ac.grim.grimac.utils.anticheat;
 
 import ac.grim.grimac.GrimAPI;
+import java.util.logging.Logger;
 import lombok.experimental.UtilityClass;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-
-import java.util.logging.Logger;
 
 @UtilityClass
 public class LogUtil {

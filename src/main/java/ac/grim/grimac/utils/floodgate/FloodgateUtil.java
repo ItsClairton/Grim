@@ -1,8 +1,7 @@
 package ac.grim.grimac.utils.floodgate;
 
-import org.geysermc.floodgate.api.FloodgateApi;
-
 import java.util.UUID;
+import org.geysermc.floodgate.api.FloodgateApi;
 
 public class FloodgateUtil {
 

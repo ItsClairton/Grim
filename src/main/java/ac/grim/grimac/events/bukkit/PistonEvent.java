@@ -6,6 +6,8 @@ import ac.grim.grimac.utils.blockstate.helper.BlockFaceHelper;
 import ac.grim.grimac.utils.collisions.datatypes.SimpleCollisionBox;
 import ac.grim.grimac.utils.data.PistonData;
 import com.github.retrooper.packetevents.protocol.world.BlockFace;
+import java.util.ArrayList;
+import java.util.List;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -13,9 +15,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PistonEvent implements Listener {
     Material SLIME_BLOCK = Material.getMaterial("SLIME_BLOCK");

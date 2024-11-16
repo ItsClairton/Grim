@@ -5,11 +5,10 @@ import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.github.retrooper.packetevents.util.Vector3f;
 import com.github.retrooper.packetevents.util.Vector3i;
-import lombok.experimental.UtilityClass;
-import net.md_5.bungee.api.ChatColor;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import lombok.experimental.UtilityClass;
+import net.md_5.bungee.api.ChatColor;
 
 @UtilityClass
 public class MessageUtil {

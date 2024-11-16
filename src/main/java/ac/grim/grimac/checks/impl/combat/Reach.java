@@ -35,11 +35,10 @@ import com.github.retrooper.packetevents.util.Vector3d;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientInteractEntity;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientPlayerFlying;
 import it.unimi.dsi.fastutil.ints.Int2ObjectArrayMap;
+import java.util.*;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
-
-import java.util.*;
 
 // You may not copy the check unless you are licensed under GPL
 @CheckData(name = "Reach", configName = "Reach", setback = 10)
@@ -101,7 +100,7 @@ public class Reach extends Check implements PacketCheck {
 
                 return;
             }
-            
+
             // Dead entities cause false flags (https://github.com/GrimAnticheat/Grim/issues/546)
             if (entity.isDead) {
                 return;

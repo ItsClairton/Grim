@@ -28,6 +28,7 @@ public class DoorHandler implements CollisionFactory {
             case WEST -> WEST_AABB.copy();
             default -> NoCollisionBox.INSTANCE;
         };
+
     }
 
     public BlockFace fetchDirection(GrimPlayer player, ClientVersion version, WrappedBlockState door, int x, int y, int z) {

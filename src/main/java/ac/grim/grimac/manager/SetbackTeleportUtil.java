@@ -26,17 +26,16 @@ import com.github.retrooper.packetevents.protocol.teleport.RelativeFlag;
 import com.github.retrooper.packetevents.util.Vector3d;
 import com.github.retrooper.packetevents.wrapper.play.server.*;
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Random;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
-
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class SetbackTeleportUtil extends Check implements PostPredictionCheck {
     // Sync to netty

@@ -6,8 +6,6 @@ import ac.grim.grimac.utils.anticheat.LogUtil;
 import ac.grim.grimac.utils.math.GrimMath;
 import github.scarsz.configuralize.DynamicConfig;
 import github.scarsz.configuralize.Language;
-import lombok.Getter;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
+import lombok.Getter;
 
 public class ConfigManager {
     @Getter

@@ -2,9 +2,8 @@ package ac.grim.grimac.utils.anticheat;
 
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
-import org.bukkit.entity.Player;
-
 import java.lang.reflect.Method;
+import org.bukkit.entity.Player;
 
 public class MultiLibUtil {
 

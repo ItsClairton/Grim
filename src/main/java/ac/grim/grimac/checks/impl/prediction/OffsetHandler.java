@@ -7,9 +7,8 @@ import ac.grim.grimac.checks.type.PostPredictionCheck;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.anticheat.update.PredictionComplete;
 import ac.grim.grimac.utils.data.Pair;
-import org.bukkit.Bukkit;
-
 import java.util.concurrent.atomic.AtomicInteger;
+import org.bukkit.Bukkit;
 
 @CheckData(name = "Simulation", configName = "Simulation", decay = 0.02)
 public class OffsetHandler extends Check implements PostPredictionCheck {

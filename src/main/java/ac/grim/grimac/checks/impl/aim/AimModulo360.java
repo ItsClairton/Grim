@@ -11,7 +11,8 @@ import ac.grim.grimac.utils.anticheat.update.RotationUpdate;
 // It works on clients who % 360 their rotation.
 @CheckData(name = "AimModulo360", decay = 0.005)
 public class AimModulo360 extends Check implements RotationCheck {
-    float lastDeltaYaw;
+
+    private float lastDeltaYaw;
 
     public AimModulo360(GrimPlayer playerData) {
         super(playerData);
@@ -32,4 +33,5 @@ public class AimModulo360 extends Check implements RotationCheck {
 
         lastDeltaYaw = rotationUpdate.getDeltaXRot();
     }
+
 }

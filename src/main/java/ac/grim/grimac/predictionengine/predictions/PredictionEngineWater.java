@@ -9,10 +9,9 @@ import ac.grim.grimac.utils.nmsutil.Collisions;
 import ac.grim.grimac.utils.nmsutil.FluidFallingAdjustedMovement;
 import ac.grim.grimac.utils.nmsutil.ReachUtils;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
-import org.bukkit.util.Vector;
-
 import java.util.HashSet;
 import java.util.Set;
+import org.bukkit.util.Vector;
 
 public class PredictionEngineWater extends PredictionEngine {
     boolean isFalling;

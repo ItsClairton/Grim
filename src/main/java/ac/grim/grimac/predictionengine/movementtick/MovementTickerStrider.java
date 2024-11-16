@@ -11,9 +11,8 @@ import com.github.retrooper.packetevents.protocol.world.states.type.StateType;
 import com.github.retrooper.packetevents.resources.ResourceLocation;
 import com.github.retrooper.packetevents.util.Vector3d;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerUpdateAttributes;
-import org.bukkit.util.Vector;
-
 import java.util.ArrayList;
+import org.bukkit.util.Vector;
 
 public class MovementTickerStrider extends MovementTickerRideable {
 

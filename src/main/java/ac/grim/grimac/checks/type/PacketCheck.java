@@ -7,7 +7,6 @@ import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.event.PacketSendEvent;
 import com.github.retrooper.packetevents.event.ProtocolPacketEvent;
 import com.github.retrooper.packetevents.wrapper.PacketWrapper;
-
 import java.util.function.Supplier;
 
 public interface PacketCheck extends AbstractCheck {

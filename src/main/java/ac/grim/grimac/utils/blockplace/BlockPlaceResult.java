@@ -21,10 +21,9 @@ import com.github.retrooper.packetevents.protocol.world.states.type.StateType;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateValue;
 import com.github.retrooper.packetevents.util.Vector3i;
-import org.bukkit.util.Vector;
-
 import java.util.*;
 import java.util.stream.Collectors;
+import org.bukkit.util.Vector;
 
 public enum BlockPlaceResult {
 

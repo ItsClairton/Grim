@@ -2,44 +2,18 @@ package ac.grim.grimac.checks.impl.movement;
 
 import ac.grim.grimac.checks.Check;
 import ac.grim.grimac.checks.CheckData;
-import ac.grim.grimac.checks.type.PacketCheck;
 import ac.grim.grimac.checks.type.PostPredictionCheck;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.anticheat.update.PredictionComplete;
-import com.github.retrooper.packetevents.event.PacketReceiveEvent;
-import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
-import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientEntityAction;
 
 @CheckData(name = "NoSlowD", setback = 5, experimental = true)
-public class NoSlowD extends Check implements PostPredictionCheck, PacketCheck {
+public class NoSlowD extends Check implements PostPredictionCheck {
 
-    public boolean startedSprintingBeforeUse = false;
     private boolean flaggedLastTick = false;
 
     public NoSlowD(GrimPlayer player) {
         super(player);
-    }
-
-    @Override
-    public void onPacketReceive(PacketReceiveEvent event) {
-        if (!startedSprintingBeforeUse) {
-            return;
-        }
-
-        if (event.getPacketType() != PacketType.Play.Client.ENTITY_ACTION) {
-            return;
-        }
-
-        final var packet = lastWrapper(event,
-                WrapperPlayClientEntityAction.class,
-                () -> new WrapperPlayClientEntityAction(event));
-
-        if (packet.getAction() != WrapperPlayClientEntityAction.Action.START_SPRINTING) {
-            return;
-        }
-
-        startedSprintingBeforeUse = false;
     }
 
     @Override
@@ -48,9 +22,7 @@ public class NoSlowD extends Check implements PostPredictionCheck, PacketCheck {
 
         if (player.packetStateData.isSlowedByUsingItem()) {
             // https://bugs.mojang.com/browse/MC-152728
-            if (startedSprintingBeforeUse && player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_14_2)) {
-                reward();
-                flaggedLastTick = false;
+            if (player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_14_2)) {
                 return;
             }
 

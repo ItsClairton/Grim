@@ -5,11 +5,10 @@ import ac.grim.grimac.utils.data.VectorData;
 import ac.grim.grimac.utils.nmsutil.ReachUtils;
 import com.github.retrooper.packetevents.protocol.attribute.Attributes;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
-import org.bukkit.util.Vector;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import org.bukkit.util.Vector;
 
 public class PredictionEngineElytra extends PredictionEngine {
     // Inputs have no effect on movement

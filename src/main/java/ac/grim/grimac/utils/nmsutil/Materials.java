@@ -11,7 +11,6 @@ import com.github.retrooper.packetevents.protocol.world.states.type.StateType;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateValue;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;

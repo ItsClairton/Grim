@@ -15,7 +15,6 @@ import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
 import com.github.retrooper.packetevents.util.Vector3d;
 import com.github.retrooper.packetevents.util.Vector3f;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

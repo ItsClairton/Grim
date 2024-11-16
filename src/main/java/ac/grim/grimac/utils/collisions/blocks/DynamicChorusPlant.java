@@ -16,7 +16,6 @@ import com.github.retrooper.packetevents.protocol.world.states.enums.South;
 import com.github.retrooper.packetevents.protocol.world.states.enums.West;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateType;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
-
 import java.util.HashSet;
 import java.util.Set;
 

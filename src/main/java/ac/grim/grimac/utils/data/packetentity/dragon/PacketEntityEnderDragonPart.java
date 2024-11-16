@@ -4,7 +4,6 @@ import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.data.packetentity.PacketEntity;
 import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
 
-import java.util.UUID;
 
 public final class PacketEntityEnderDragonPart extends PacketEntity {
 

@@ -32,14 +32,13 @@ import com.github.retrooper.packetevents.protocol.world.states.type.StateValue;
 import com.github.retrooper.packetevents.util.Vector3d;
 import com.github.retrooper.packetevents.util.Vector3f;
 import com.github.retrooper.packetevents.util.Vector3i;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class BlockPlace {
     protected static final BlockFace[] UPDATE_SHAPE_ORDER = new BlockFace[]{BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.DOWN, BlockFace.UP};

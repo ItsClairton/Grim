@@ -1,7 +1,6 @@
 package ac.grim.grimac.events.packets;
 
 import ac.grim.grimac.GrimAPI;
-import ac.grim.grimac.checks.impl.movement.NoSlowD;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.PacketUtil;
 import ac.grim.grimac.utils.nmsutil.WatchableIndexUtil;
@@ -20,7 +19,6 @@ import com.github.retrooper.packetevents.util.Vector3i;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerEntityAnimation;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerEntityMetadata;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerUseBed;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -209,8 +207,6 @@ public class PacketSelfMetadataListener extends PacketListenerAbstract {
                                     PacketPlayerDigging.handleUseItem(player, item, isOffhand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND);
                                     // The above line is a hack to fake activate use item
                                     player.packetStateData.setSlowedByUsingItem(isActive);
-
-                                    player.checkManager.getPostPredictionCheck(NoSlowD.class).startedSprintingBeforeUse = player.packetStateData.isSlowedByUsingItem() && player.isSprinting;
 
                                     if (isActive) {
                                         player.packetStateData.eatingHand = isOffhand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;

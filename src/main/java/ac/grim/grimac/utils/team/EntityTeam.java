@@ -3,11 +3,10 @@ package ac.grim.grimac.utils.team;
 import ac.grim.grimac.player.GrimPlayer;
 import com.github.retrooper.packetevents.protocol.player.UserProfile;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerTeams;
-import lombok.Getter;
-
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import lombok.Getter;
 
 public final class EntityTeam {
 

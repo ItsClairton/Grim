@@ -3,6 +3,7 @@ plugins {
     id("com.gradleup.shadow") version "8.3.2"
     id("io.freefair.lombok") version "8.7.1"
     id("xyz.jpenilla.run-paper") version "2.3.1"
+    id("com.diffplug.spotless") version "7.0.0.BETA2"
 }
 
 group = "ac.grim.grimac"
@@ -98,4 +99,11 @@ tasks {
         }
     }
 
+}
+
+spotless {
+    java {
+        importOrder()
+        removeUnusedImports()
+    }
 }

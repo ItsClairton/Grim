@@ -3,7 +3,6 @@ package ac.grim.grimac.utils.collisions.datatypes;
 import ac.grim.grimac.player.GrimPlayer;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import com.github.retrooper.packetevents.protocol.world.states.WrappedBlockState;
-
 import java.util.List;
 
 public class DynamicCollisionBox implements CollisionBox {
@@ -19,6 +18,14 @@ public class DynamicCollisionBox implements CollisionBox {
         this.version = version;
         this.box = box;
         this.block = block;
+    }
+
+    // Untested but currently unused
+    // *should* work because every single one of these eventually becomes a Complex, Simple, or NoCollision Box
+    @Override
+    public CollisionBox union(SimpleCollisionBox other) {
+        CollisionBox dynamicBox = box.fetch(player, version, block, x, y, z).offset(x, y, z);
+        return dynamicBox.union(other);
     }
 
     @Override

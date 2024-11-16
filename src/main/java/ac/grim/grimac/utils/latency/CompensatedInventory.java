@@ -28,7 +28,6 @@ import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerOp
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerWindowItems;
 import io.github.retrooper.packetevents.util.SpigotConversionUtil;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;

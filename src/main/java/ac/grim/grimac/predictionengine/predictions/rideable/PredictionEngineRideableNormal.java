@@ -3,10 +3,9 @@ package ac.grim.grimac.predictionengine.predictions.rideable;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.predictionengine.predictions.PredictionEngineNormal;
 import ac.grim.grimac.utils.data.VectorData;
-import org.bukkit.util.Vector;
-
 import java.util.List;
 import java.util.Set;
+import org.bukkit.util.Vector;
 
 public class PredictionEngineRideableNormal extends PredictionEngineNormal {
 

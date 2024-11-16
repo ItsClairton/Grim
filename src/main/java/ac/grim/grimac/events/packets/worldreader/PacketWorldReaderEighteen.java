@@ -8,7 +8,6 @@ import com.github.retrooper.packetevents.protocol.world.chunk.impl.v_1_18.Chunk_
 import com.github.retrooper.packetevents.protocol.world.chunk.reader.impl.ChunkReader_v1_18;
 import com.github.retrooper.packetevents.protocol.world.dimension.DimensionTypes;
 import com.github.retrooper.packetevents.wrapper.PacketWrapper;
-
 import java.io.ByteArrayInputStream;
 
 public class PacketWorldReaderEighteen extends BasePacketWorldReader {

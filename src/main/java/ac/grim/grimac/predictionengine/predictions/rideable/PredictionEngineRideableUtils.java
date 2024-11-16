@@ -8,12 +8,10 @@ import ac.grim.grimac.utils.data.packetentity.PacketEntityHorse;
 import ac.grim.grimac.utils.nmsutil.JumpPower;
 import com.github.retrooper.packetevents.protocol.attribute.Attributes;
 import com.github.retrooper.packetevents.protocol.potion.PotionTypes;
-import org.bukkit.util.Vector;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.OptionalInt;
 import java.util.Set;
+import org.bukkit.util.Vector;
 
 public class PredictionEngineRideableUtils {
     public static Set<VectorData> handleJumps(GrimPlayer player, Set<VectorData> possibleVectors) {

@@ -12,10 +12,9 @@ import ac.grim.grimac.utils.lists.EvictingQueue;
 import ac.grim.grimac.utils.math.GrimMath;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.protocol.world.states.WrappedBlockState;
+import java.util.*;
 import lombok.AllArgsConstructor;
 import org.bukkit.util.Vector;
-
-import java.util.*;
 
 public final class SuperDebug extends Check implements PostPredictionCheck {
     private static final StringBuilder[] flags = new StringBuilder[256]; //  17 MB of logs in memory

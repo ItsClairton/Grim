@@ -8,11 +8,10 @@ import ac.grim.grimac.utils.data.Pair;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.protocol.packettype.PacketTypeCommon;
 import github.scarsz.configuralize.DynamicConfig;
+import java.util.Arrays;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
-
-import java.util.Arrays;
 
 // Class from https://github.com/Tecnio/AntiCheatBase/blob/master/src/main/java/me/tecnio/anticheat/check/Check.java
 @Getter
@@ -151,4 +150,3 @@ public class Check implements AbstractCheck {
     }
 
 }
-

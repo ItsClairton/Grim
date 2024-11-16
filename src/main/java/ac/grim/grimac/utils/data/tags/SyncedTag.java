@@ -2,7 +2,6 @@ package ac.grim.grimac.utils.data.tags;
 
 import com.github.retrooper.packetevents.resources.ResourceLocation;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerTags;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;

@@ -14,7 +14,6 @@ import com.github.retrooper.packetevents.protocol.world.states.WrappedBlockState
 import com.github.retrooper.packetevents.protocol.world.states.defaulttags.BlockTags;
 import com.github.retrooper.packetevents.protocol.world.states.enums.Half;
 import com.github.retrooper.packetevents.protocol.world.states.enums.Shape;
-
 import java.util.stream.IntStream;
 
 public class DynamicStair implements CollisionFactory {

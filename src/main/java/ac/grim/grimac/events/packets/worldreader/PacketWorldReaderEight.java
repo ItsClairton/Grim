@@ -9,7 +9,6 @@ import com.github.retrooper.packetevents.protocol.world.chunk.palette.PaletteTyp
 import com.github.retrooper.packetevents.protocol.world.chunk.storage.BitStorage;
 import com.github.retrooper.packetevents.wrapper.PacketWrapper;
 import io.netty.buffer.ByteBuf;
-
 import java.util.BitSet;
 
 public class PacketWorldReaderEight extends BasePacketWorldReader {

@@ -47,11 +47,10 @@ import com.github.retrooper.packetevents.wrapper.play.client.*;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerAcknowledgeBlockChanges;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerSetSlot;
 import io.github.retrooper.packetevents.util.SpigotConversionUtil;
-import org.bukkit.util.Vector;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
+import org.bukkit.util.Vector;
 
 public class CheckManagerListener extends PacketListenerAbstract {
 
@@ -458,8 +457,12 @@ public class CheckManagerListener extends PacketListenerAbstract {
             player.checkManager.getPacketCheck(BadPacketsZ.class).handle(event, dig);
 
             if (dig.getAction() == DiggingAction.FINISHED_DIGGING) {
+                final var type = block.getType();
+
                 // Not unbreakable
-                if (!block.getType().isAir() && block.getType().getHardness() != -1.0f && !event.isCancelled()) {
+                if (!type.isAir() && type.getHardness() != -1.0f
+                        && type != StateTypes.WATER && type != StateTypes.LAVA
+                        && !event.isCancelled()) {
                     player.compensatedWorld.startPredicting();
                     player.compensatedWorld.updateBlock(dig.getBlockPosition().getX(), dig.getBlockPosition().getY(), dig.getBlockPosition().getZ(), 0);
                     player.compensatedWorld.stopPredicting(dig);

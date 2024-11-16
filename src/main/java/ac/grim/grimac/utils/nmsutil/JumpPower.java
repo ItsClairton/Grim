@@ -7,8 +7,6 @@ import com.github.retrooper.packetevents.protocol.potion.PotionTypes;
 import com.github.retrooper.packetevents.util.Vector3d;
 import org.bukkit.util.Vector;
 
-import java.util.OptionalInt;
-
 public class JumpPower {
     public static void jumpFromGround(GrimPlayer player, Vector vector) {
         float jumpPower = getJumpPower(player);

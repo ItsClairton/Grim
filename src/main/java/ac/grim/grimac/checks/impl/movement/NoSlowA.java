@@ -37,8 +37,7 @@ public class NoSlowA extends Check implements PostPredictionCheck {
             }
 
             if (bestOffset > offsetToFlag) {
-                if (flaggedLastTick) {
-                    flagWithSetback();
+                if (flaggedLastTick && flagWithSetback()) {
                     alert(new Pair<>("offset", formatOffset(bestOffset)));
                 }
                 flaggedLastTick = true;

@@ -11,11 +11,10 @@ import com.github.retrooper.packetevents.protocol.world.states.WrappedBlockState
 import com.github.retrooper.packetevents.util.Vector3i;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerMultiBlockChange;
 import io.github.retrooper.packetevents.util.folia.FoliaScheduler;
+import java.util.HashMap;
 import org.bukkit.Chunk;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
-
-import java.util.HashMap;
 
 public class ResyncWorldUtil {
     static HashMap<BlockData, Integer> blockDataToId = new HashMap<>();
@@ -37,7 +36,7 @@ public class ResyncWorldUtil {
 
         // Takes 0.15ms or so to complete. Not bad IMO. Unsure how I could improve this other than sending packets async.
         // But that's on PacketEvents.
-        FoliaScheduler.getEntityScheduler().execute(player.bukkitPlayer, GrimAPI.INSTANCE.getPlugin(), () -> {
+        FoliaScheduler.getGlobalRegionScheduler().execute(GrimAPI.INSTANCE.getPlugin(), () -> {
             boolean flat = PacketEvents.getAPI().getServerManager().getVersion().isNewerThanOrEquals(ServerVersion.V_1_13);
 
             if (player.bukkitPlayer == null) return;
@@ -111,6 +110,6 @@ public class ResyncWorldUtil {
                     }
                 }
             }
-        }, null, 0);
+        });
     }
 }

@@ -1,24 +1,22 @@
 package ac.grim.grimac.utils.data;
 
-import ac.grim.grimac.player.GrimPlayer;
-import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import com.github.retrooper.packetevents.util.Vector3d;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
 public final class TrackedPosition {
 
     private static final double MODERN_COORDINATE_SCALE = 4096.0;
     private static final double LEGACY_COORDINATE_SCALE = 32.0;
 
     private final double scale;
+    @Setter
     private Vector3d pos = new Vector3d();
 
     public TrackedPosition() {
 //        this.scale = player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_9) ? MODERN_COORDINATE_SCALE : LEGACY_COORDINATE_SCALE;
         this.scale = MODERN_COORDINATE_SCALE;
-    }
-
-    public double getScale() {
-        return scale;
     }
 
     public static long pack(double value, double scale) {
@@ -35,10 +33,6 @@ public final class TrackedPosition {
 
     private double unpackLegacy(double value) {
         return value / scale;
-    }
-
-    public Vector3d getPos() {
-        return pos;
     }
 
     // Method since 1.16.
@@ -61,7 +55,4 @@ public final class TrackedPosition {
         return new Vector3d(d, e, f);
     }
 
-    public void setPos(Vector3d pos) {
-        this.pos = pos;
-    }
 }

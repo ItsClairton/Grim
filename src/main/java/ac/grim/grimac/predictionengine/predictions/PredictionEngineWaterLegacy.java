@@ -2,10 +2,9 @@ package ac.grim.grimac.predictionengine.predictions;
 
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.data.VectorData;
-import org.bukkit.util.Vector;
-
 import java.util.HashSet;
 import java.util.Set;
+import org.bukkit.util.Vector;
 
 public class PredictionEngineWaterLegacy extends PredictionEngine {
     double playerGravity;

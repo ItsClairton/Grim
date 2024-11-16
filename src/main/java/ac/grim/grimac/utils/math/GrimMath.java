@@ -1,8 +1,7 @@
 package ac.grim.grimac.utils.math;
 
-import lombok.experimental.UtilityClass;
-
 import java.util.List;
+import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class GrimMath {
@@ -104,5 +103,11 @@ public class GrimMath {
 
     public static boolean isNearlySame(double a, double b, double epoch) {
         return Math.abs(a-b) < epoch;
+    }
+
+    public static long hashCode(double x, int y, double z) {
+        long l = (long)(x * 3129871) ^ (long)z * 116129781L ^ (long)y;
+        l = l * l * 42317861L + l * 11L;
+        return l >> 16;
     }
 }

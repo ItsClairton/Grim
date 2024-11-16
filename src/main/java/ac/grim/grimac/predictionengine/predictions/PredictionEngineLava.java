@@ -4,9 +4,8 @@ import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.data.VectorData;
 import ac.grim.grimac.utils.math.GrimMath;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
-import org.bukkit.util.Vector;
-
 import java.util.Set;
+import org.bukkit.util.Vector;
 
 public class PredictionEngineLava extends PredictionEngine {
     @Override

@@ -1,5 +1,7 @@
 package ac.grim.grimac.checks.impl.post;
 
+import static com.github.retrooper.packetevents.protocol.packettype.PacketType.Play.Client.*;
+
 import ac.grim.grimac.checks.Check;
 import ac.grim.grimac.checks.CheckData;
 import ac.grim.grimac.checks.type.PacketCheck;
@@ -21,8 +23,6 @@ import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerEn
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerEntityAnimation.EntityAnimationType;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-
-import static com.github.retrooper.packetevents.protocol.packettype.PacketType.Play.Client.*;
 
 @CheckData(name = "Post")
 public class PostCheck extends Check implements PacketCheck, PostPredictionCheck {

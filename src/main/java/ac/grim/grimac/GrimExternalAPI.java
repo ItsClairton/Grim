@@ -8,16 +8,15 @@ import ac.grim.grimac.manager.init.Initable;
 import ac.grim.grimac.player.GrimPlayer;
 import com.github.retrooper.packetevents.netty.channel.ChannelHelper;
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import lombok.Getter;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 //This is used for grim's external API. It has its own class just for organization.
 public class GrimExternalAPI implements GrimAbstractAPI, Initable {

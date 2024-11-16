@@ -29,15 +29,13 @@ import com.github.retrooper.packetevents.protocol.potion.PotionType;
 import com.github.retrooper.packetevents.util.Vector3d;
 import it.unimi.dsi.fastutil.objects.Object2IntArrayMap;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
-import lombok.Getter;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.IdentityHashMap;
 import java.util.List;
-import java.util.OptionalInt;
-import java.util.UUID;
 import java.util.Map;
+import java.util.UUID;
+import lombok.Getter;
+import org.jetbrains.annotations.Nullable;
 
 // You may not copy this check unless your anticheat is licensed under GPL
 public class PacketEntity extends TypedPacketEntity {

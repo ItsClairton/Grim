@@ -6,11 +6,10 @@ import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.lists.HookedListWrapper;
 import com.github.retrooper.packetevents.util.reflection.Reflection;
 import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
-import sun.misc.Unsafe;
-
 import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.List;
+import sun.misc.Unsafe;
 
 // Copied from: https://github.com/ThomasOM/Pledge/blob/master/src/main/java/dev/thomazz/pledge/inject/ServerInjector.java
 @SuppressWarnings(value = {"unchecked", "deprecated"})

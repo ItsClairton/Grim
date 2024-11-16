@@ -15,9 +15,8 @@ import com.github.retrooper.packetevents.protocol.entity.type.EntityTypes;
 import com.github.retrooper.packetevents.protocol.world.BlockFace;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntList;
-import org.bukkit.util.Vector;
-
 import java.util.*;
+import org.bukkit.util.Vector;
 
 public class UncertaintyHandler {
     private final GrimPlayer player;

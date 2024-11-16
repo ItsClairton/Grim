@@ -45,10 +45,9 @@ import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientUs
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.longs.Long2ObjectOpenHashMap;
 import it.unimi.dsi.fastutil.objects.Object2ObjectLinkedOpenHashMap;
+import java.util.*;
 import org.bukkit.Bukkit;
 import org.bukkit.util.Vector;
-
-import java.util.*;
 
 // Inspired by https://github.com/GeyserMC/Geyser/blob/master/connector/src/main/java/org/geysermc/connector/network/session/cache/ChunkCache.java
 public class CompensatedWorld {

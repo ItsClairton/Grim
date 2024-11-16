@@ -18,8 +18,6 @@ import com.github.retrooper.packetevents.protocol.world.states.defaulttags.Block
 import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
 import com.github.retrooper.packetevents.util.Vector3i;
 
-import java.util.OptionalInt;
-
 public class BlockBreakSpeed {
     public static double getBlockDamage(GrimPlayer player, Vector3i position) {
         // GET destroy speed

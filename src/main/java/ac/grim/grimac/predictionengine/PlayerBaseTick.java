@@ -1,6 +1,5 @@
 package ac.grim.grimac.predictionengine;
 
-import ac.grim.grimac.checks.impl.movement.NoSlowC;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.collisions.datatypes.SimpleCollisionBox;
 import ac.grim.grimac.utils.data.attribute.ValuedAttribute;
@@ -85,8 +84,6 @@ public class PlayerBaseTick {
         }
 
         if (player.compensatedEntities.getSelf().inVehicle()) player.isSlowMovement = false;
-
-        if (wasSlowMovement != player.isSlowMovement) player.checkManager.getPostPredictionCheck(NoSlowC.class).startedSprintingBeforeSlowMovement = player.isSlowMovement && player.isSprinting;
 
         // Players in boats don't care about being in blocks
         if (!player.compensatedEntities.getSelf().inVehicle()) {

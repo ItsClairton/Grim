@@ -1,5 +1,8 @@
 package ac.grim.grimac.checks.impl.badpackets;
 
+import static ac.grim.grimac.events.packets.patch.ResyncWorldUtil.resyncPosition;
+import static ac.grim.grimac.utils.nmsutil.BlockBreakSpeed.getBlockDamage;
+
 import ac.grim.grimac.checks.Check;
 import ac.grim.grimac.checks.CheckData;
 import ac.grim.grimac.checks.type.PacketCheck;
@@ -12,9 +15,6 @@ import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import com.github.retrooper.packetevents.protocol.player.DiggingAction;
 import com.github.retrooper.packetevents.util.Vector3i;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientPlayerDigging;
-
-import static ac.grim.grimac.events.packets.patch.ResyncWorldUtil.resyncPosition;
-import static ac.grim.grimac.utils.nmsutil.BlockBreakSpeed.getBlockDamage;
 
 @CheckData(name = "BadPacketsZ", experimental = true)
 public class BadPacketsZ extends Check implements PacketCheck {

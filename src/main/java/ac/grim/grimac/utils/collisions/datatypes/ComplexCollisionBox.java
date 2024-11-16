@@ -1,7 +1,5 @@
 package ac.grim.grimac.utils.collisions.datatypes;
 
-import it.unimi.dsi.fastutil.objects.ObjectArrayList;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -21,6 +19,12 @@ public class ComplexCollisionBox implements CollisionBox {
 
     public boolean add(CollisionBox collisionBox) {
         return boxes.add(collisionBox);
+    }
+
+    @Override
+    public CollisionBox union(SimpleCollisionBox other) {
+        add(other);
+        return this;
     }
 
     @Override

@@ -7,13 +7,12 @@ import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.anticheat.LogUtil;
 import ac.grim.grimac.utils.anticheat.update.PredictionComplete;
 import ac.grim.grimac.utils.lists.EvictingQueue;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 @CheckData(name = "Prediction (Debug)")
 public class DebugHandler extends Check implements PostPredictionCheck {
