@@ -122,8 +122,7 @@ public class PacketPlayerRespawn extends PacketListenerAbstract {
             GrimPlayer player = GrimAPI.INSTANCE.getPlayerDataManager().getPlayer(event.getUser());
             if (player == null) return;
 
-            List<Runnable> tasks = event.getTasksAfterSend();
-            tasks.add(player::sendTransaction);
+            player.sendTransaction();
 
             // Force the player to accept a teleport before respawning
             // (We won't process movements until they accept a teleport, we won't let movements though either)
@@ -131,12 +130,7 @@ public class PacketPlayerRespawn extends PacketListenerAbstract {
             player.getSetbackTeleportUtil().hasAcceptedSpawnTeleport = false;
             player.getSetbackTeleportUtil().lastKnownGoodPosition = null;
 
-            // clear server entity positions when the world changes
-            if (isWorldChange(player, respawn)) {
-                player.compensatedEntities.serverPositionsMap.clear();
-            }
-
-            player.latencyUtils.addRealTimeTask(player.lastTransactionSent.get() + 1, () -> {
+            player.latencyUtils.addRealTimeTask(player.lastTransactionSent.get(), () -> {
                 player.isSneaking = false;
                 player.lastOnGround = false;
                 player.onGround = false;
@@ -172,12 +166,14 @@ public class PacketPlayerRespawn extends PacketListenerAbstract {
 
                 // EVERYTHING gets reset on a cross dimensional teleport, clear chunks and entities!
                 if (isWorldChange(player, respawn)) {
+                    player.compensatedEntities.serverPositionsMap.clear();
                     player.compensatedEntities.entityMap.clear();
                     player.compensatedWorld.activePistons.clear();
                     player.compensatedWorld.openShulkerBoxes.clear();
                     player.compensatedWorld.chunks.clear();
                     player.compensatedWorld.isRaining = false;
                 }
+
                 player.dimensionType = respawn.getDimensionType();
 
                 player.compensatedEntities.serverPlayerVehicle = null; // All entities get removed on respawn
