@@ -265,10 +265,10 @@ public class Reach extends Check implements PacketCheck {
         // if the entity is not exempt and the entity is alive
         if ((!blacklisted.contains(reachEntity.getType()) && reachEntity.isLivingEntity()) || reachEntity.getType() == EntityTypes.END_CRYSTAL) {
             if (minDistance == Double.MAX_VALUE) {
-                cancelBuffer = 1;
+                cancelBuffer = 1.25;
                 return "∞";
             } else if (minDistance > player.compensatedEntities.getSelf().getAttributeValue(Attributes.PLAYER_ENTITY_INTERACTION_RANGE)) {
-                cancelBuffer = 1;
+                cancelBuffer = 1.25;
                 return String.format("%.5f", minDistance);
             } else {
                 cancelBuffer = Math.max(0, cancelBuffer - 0.25);
