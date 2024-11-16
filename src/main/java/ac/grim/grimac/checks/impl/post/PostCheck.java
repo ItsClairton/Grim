@@ -71,6 +71,7 @@ public class PostCheck extends Check implements PacketCheck, PostPredictionCheck
         }
 
         if (!player.isTickingReliablyFor(3)) {
+            flags.clear();
             return;
         }
 
