@@ -173,6 +173,6 @@ public class VectorData {
         FlipSneaking,
         FlipUseItem,
         EntityPushing,
-        LunarFlySpeed
+        FlySpeed
     }
 }

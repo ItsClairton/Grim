@@ -3,6 +3,7 @@ package ac.grim.grimac.checks.impl.misc;
 import ac.grim.grimac.checks.Check;
 import ac.grim.grimac.checks.type.PacketCheck;
 import ac.grim.grimac.player.GrimPlayer;
+import ac.grim.grimac.player.UserClient;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
@@ -50,6 +51,8 @@ public class ClientBrand extends Check implements PacketCheck {
             System.arraycopy(data, 1, dataWithoutPrefix, 0, dataWithoutPrefix.length);
 
             brand = new String(dataWithoutPrefix).replace(" (Velocity)", "");
+            player.setClient(UserClient.fromString(brand));
+
             /*if (legacyChannel) {
                 sendForgeHandshake();
             }*/
