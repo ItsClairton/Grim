@@ -92,7 +92,7 @@ public class MultiInteractB extends Check implements PostPredictionCheck {
 
         hasInteracted = false;
 
-        if (player.skippedTickInActualMovement || !predictionComplete.isChecked()) {
+        if (!player.isTickingReliablyFor(3)) {
             flags.clear();
             return;
         }

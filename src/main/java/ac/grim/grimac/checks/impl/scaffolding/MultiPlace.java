@@ -75,7 +75,12 @@ public class MultiPlace extends BlockPlaceCheck {
 
     @Override
     public void onPredictionComplete(PredictionComplete predictionComplete) {
-        if (!predictionComplete.isChecked() || player.skippedTickInActualMovement || flags == null) {
+        if (flags == null) {
+            return;
+        }
+
+        if (!player.isTickingReliablyFor(3)) {
+            flags.clear();
             return;
         }
 
