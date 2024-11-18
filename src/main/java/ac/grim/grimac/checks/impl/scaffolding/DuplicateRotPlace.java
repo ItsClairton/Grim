@@ -3,6 +3,7 @@ package ac.grim.grimac.checks.impl.scaffolding;
 import ac.grim.grimac.checks.CheckData;
 import ac.grim.grimac.checks.type.BlockPlaceCheck;
 import ac.grim.grimac.player.GrimPlayer;
+import ac.grim.grimac.player.UserClient;
 import ac.grim.grimac.utils.anticheat.update.BlockPlace;
 import ac.grim.grimac.utils.anticheat.update.RotationUpdate;
 import ac.grim.grimac.utils.collisions.datatypes.SimpleCollisionBox;
@@ -33,6 +34,10 @@ public class DuplicateRotPlace extends BlockPlaceCheck {
 
     @Override
     public void onBlockPlace(BlockPlace place) {
+        if (player.getClient() != UserClient.VANILLA && player.getClient() != UserClient.FABRIC) {
+            return;
+        }
+
         if (!rotated || !place.isBlock()) {
             return;
         }

@@ -1,10 +1,9 @@
 package ac.grim.grimac.player;
 
+import java.util.regex.Pattern;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.experimental.Accessors;
-
-import java.util.regex.Pattern;
 
 @Getter
 @AllArgsConstructor

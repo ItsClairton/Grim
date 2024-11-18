@@ -472,11 +472,6 @@ public class MovementCheckRunner extends Check implements PositionCheck {
             new MovementTickerPlayer(player).livingEntityAIStep();
             new PlayerBaseTick(player).updatePowderSnow();
             new PlayerBaseTick(player).updatePlayerPose();
-
-            if (player.canFly && player.getClient().flySpeed() && player.gamemode == GameMode.CREATIVE) {
-                player.predictedVelocity = new VectorData(player.actualMovement, VectorData.VectorType.FlySpeed);
-                player.clientVelocity = player.actualMovement.clone();
-            }
         } else if (PacketEvents.getAPI().getServerManager().getVersion().isNewerThanOrEquals(ServerVersion.V_1_9) && player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_9)) {
             wasChecked = true;
             // The player and server are both on a version with client controlled entities

@@ -7,11 +7,13 @@ import ac.grim.grimac.checks.type.PostPredictionCheck;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.anticheat.update.PredictionComplete;
 import ac.grim.grimac.utils.data.Pair;
+import com.github.retrooper.packetevents.protocol.player.GameMode;
 import java.util.concurrent.atomic.AtomicInteger;
 import org.bukkit.Bukkit;
 
 @CheckData(name = "Simulation", configName = "Simulation", decay = 0.02)
 public class OffsetHandler extends Check implements PostPredictionCheck {
+
     // Config
     double setbackDecayMultiplier;
     double threshold;
@@ -39,7 +41,8 @@ public class OffsetHandler extends Check implements PostPredictionCheck {
         if (completePredictionEvent.isCancelled()) return;
 
         // Short circuit out flag call
-        if ((offset >= threshold || offset >= immediateSetbackThreshold)) {
+        if ((offset >= threshold || offset >= immediateSetbackThreshold) &&
+                (!player.canFly || !player.getClient().flySpeed() || player.gamemode != GameMode.CREATIVE)) {
             advantageGained += offset;
 
             boolean isSetback = advantageGained >= maxAdvantage || offset >= immediateSetbackThreshold;
@@ -121,7 +124,4 @@ public class OffsetHandler extends Check implements PostPredictionCheck {
         if (immediateSetbackThreshold == -1) immediateSetbackThreshold = Double.MAX_VALUE;
     }
 
-    public boolean doesOffsetFlag(double offset) {
-        return offset >= threshold;
-    }
 }
