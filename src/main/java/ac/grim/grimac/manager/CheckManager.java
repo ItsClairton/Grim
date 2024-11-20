@@ -11,10 +11,7 @@ import ac.grim.grimac.checks.impl.combat.Reach;
 import ac.grim.grimac.checks.impl.crash.*;
 import ac.grim.grimac.checks.impl.exploit.ExploitA;
 import ac.grim.grimac.checks.impl.groundspoof.NoFallA;
-import ac.grim.grimac.checks.impl.inventory.InventoryA;
-import ac.grim.grimac.checks.impl.inventory.InventoryB;
-import ac.grim.grimac.checks.impl.inventory.InventoryC;
-import ac.grim.grimac.checks.impl.inventory.InventoryHandler;
+import ac.grim.grimac.checks.impl.inventory.*;
 import ac.grim.grimac.checks.impl.misc.ClientBrand;
 import ac.grim.grimac.checks.impl.misc.FastBreak;
 import ac.grim.grimac.checks.impl.misc.TransactionOrder;
@@ -105,6 +102,7 @@ public class CheckManager {
                 .put(InventoryA.class, new InventoryA(player))
                 .put(InventoryB.class, new InventoryB(player))
                 .put(InventoryC.class, new InventoryC(player))
+                .put(InventoryD.class, new InventoryD(player))
                 .put(DamageIndicator.class, new DamageIndicator(player))
                 .put(EquipmentIndicator.class, new EquipmentIndicator(player))
                 .put(SetbackBlocker.class, new SetbackBlocker(player)) // Must be last class otherwise we can't check while blocking packets

@@ -1,24 +1,32 @@
 package ac.grim.grimac.checks.impl.inventory;
 
 import ac.grim.grimac.checks.Check;
-import ac.grim.grimac.checks.CheckData;
 import ac.grim.grimac.checks.type.PacketCheck;
+import ac.grim.grimac.events.packets.patch.ResyncWorldUtil;
 import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.data.Pair;
 import com.github.retrooper.packetevents.event.PacketReceiveEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
-import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientInteractEntity;
+import com.github.retrooper.packetevents.protocol.player.DiggingAction;
+import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientPlayerDigging;
 
-@CheckData(name = "InventoryA")
-public class InventoryA extends Check implements PacketCheck {
+public class InventoryD extends Check implements PacketCheck {
 
-    public InventoryA(GrimPlayer player) {
+    public InventoryD(GrimPlayer player) {
         super(player);
     }
 
     @Override
     public void onPacketReceive(PacketReceiveEvent event) {
-        if (event.getPacketType() != PacketType.Play.Client.INTERACT_ENTITY) {
+        if (event.getPacketType() != PacketType.Play.Client.PLAYER_DIGGING) {
+            return;
+        }
+
+        final var wrapper = lastWrapper(event,
+                WrapperPlayClientPlayerDigging.class,
+                () -> new WrapperPlayClientPlayerDigging(event));
+
+        if (wrapper.getAction() != DiggingAction.START_DIGGING) {
             return;
         }
 
@@ -27,14 +35,10 @@ public class InventoryA extends Check implements PacketCheck {
             return;
         }
 
-        final var wrapper = lastWrapper(event,
-                WrapperPlayClientInteractEntity.class,
-                () -> new WrapperPlayClientInteractEntity(event));
-
         if (player.getSetbackTeleportUtil().hasAcceptedSpawnTeleport && !flagAndAlert(
                 new Pair<>("window-id", handler.getWindowId()),
-                new Pair<>("entity-id", wrapper.getEntityId()),
-                new Pair<>("action", wrapper.getAction()))) {
+                new Pair<>("action", wrapper.getAction()),
+                new Pair<>("position", wrapper.getBlockPosition()))) {
             return;
         }
 
@@ -43,6 +47,7 @@ public class InventoryA extends Check implements PacketCheck {
         }
 
         event.setCancelled(true);
+        ResyncWorldUtil.resyncPosition(player, wrapper.getBlockPosition());
     }
 
 }

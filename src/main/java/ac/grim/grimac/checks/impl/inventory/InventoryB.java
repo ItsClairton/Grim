@@ -32,7 +32,8 @@ public class InventoryB extends Check implements PacketCheck {
                 WrapperPlayClientPlayerBlockPlacement.class,
                 () -> new WrapperPlayClientPlayerBlockPlacement(event));
 
-        if (!flagAndAlert(new Pair<>("window-id", handler.getWindowId()),
+        if (player.getSetbackTeleportUtil().hasAcceptedSpawnTeleport && !flagAndAlert(
+                new Pair<>("window-id", handler.getWindowId()),
                 new Pair<>("position", wrapper.getBlockPosition()),
                 new Pair<>("face", wrapper.getFace()))) {
             return;

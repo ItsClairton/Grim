@@ -199,6 +199,8 @@ checks:
     description: "Verifica se o jogador está com o inventário fechado antes de colocar um bloco ou utilizar um item."
   InventoryC:
     description: "Verifica se o inventário aberto pelo jogador é o mesmo inventário que ele está tentando interagir."
+  InventoryD:
+    description: "Verifica se o jogador está com o inventário fechado antes de quebrar um bloco."
   MultiInteractA:
     description: "Verifica se o cliente do jogador enviou algum pacote de Flying antes de interagir com uma entidade diferente."
   MultiInteractB:
