@@ -41,7 +41,7 @@ max-transaction-time: 60
 cancel-duplicate-packet: true
 
 # Whether or not to ignore the rotation in duplicate packets
-ignore-duplicate-packet-rotation: false
+ignore-duplicate-packet-rotation: true
 
 Simulation:
   # How much should we multiply total advantage by when the player is legit
