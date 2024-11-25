@@ -269,13 +269,14 @@ public class PlayerBaseTick {
 
 
     private void moveTowardsClosestSpace(double xPosition, double zPosition) {
-        player.boundingBox = player.boundingBox.expand(0.03, 0, 0.03); // 0.03... thanks mojang!
+        double movementThreshold = player.getMovementThreshold();
+        player.boundingBox = player.boundingBox.expand(movementThreshold, 0, movementThreshold); // 0.03... thanks mojang!
         if (player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_14)) {
             moveTowardsClosestSpaceModern(xPosition, zPosition);
         } else {
             moveTowardsClosestSpaceLegacy(xPosition, zPosition);
         }
-        player.boundingBox = player.boundingBox.expand(-0.03, 0, -0.03);
+        player.boundingBox = player.boundingBox.expand(-movementThreshold, 0, -movementThreshold);
     }
 
     // Mojang is incompetent and this will push the player out a lot when using elytras

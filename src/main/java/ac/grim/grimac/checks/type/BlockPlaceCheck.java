@@ -5,6 +5,7 @@ import ac.grim.grimac.player.GrimPlayer;
 import ac.grim.grimac.utils.anticheat.update.BlockPlace;
 import ac.grim.grimac.utils.collisions.HitboxData;
 import ac.grim.grimac.utils.collisions.datatypes.CollisionBox;
+import ac.grim.grimac.utils.collisions.datatypes.ComplexCollisionBox;
 import ac.grim.grimac.utils.collisions.datatypes.SimpleCollisionBox;
 import com.github.retrooper.packetevents.protocol.world.states.defaulttags.BlockTags;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateType;
@@ -16,6 +17,7 @@ import java.util.List;
 public class BlockPlaceCheck extends Check implements RotationCheck, PostPredictionCheck {
     private static final List<StateType> weirdBoxes = new ArrayList<>();
     private static final List<StateType> buggyBoxes = new ArrayList<>();
+    private final SimpleCollisionBox[] boxes = new SimpleCollisionBox[ComplexCollisionBox.DEFAULT_MAX_COLLISION_BOX_SIZE];
 
     protected int cancelVL;
 
@@ -68,11 +70,11 @@ public class BlockPlaceCheck extends Check implements RotationCheck, PostPredict
         Vector3i clicked = place.getPlacedAgainstBlockLocation();
         CollisionBox placedOn = HitboxData.getBlockHitbox(player, place.getMaterial(), player.getClientVersion(), player.compensatedWorld.getWrappedBlockStateAt(clicked), clicked.getX(), clicked.getY(), clicked.getZ());
 
-        List<SimpleCollisionBox> boxes = new ArrayList<>();
-        placedOn.downCast(boxes);
+        int size = placedOn.downCast(boxes);
 
         SimpleCollisionBox combined = new SimpleCollisionBox(clicked.getX(), clicked.getY(), clicked.getZ());
-        for (SimpleCollisionBox box : boxes) {
+        for (int i = 0; i < size; i++) {
+            SimpleCollisionBox box = boxes[i];
             double minX = Math.max(box.minX, combined.minX);
             double minY = Math.max(box.minY, combined.minY);
             double minZ = Math.max(box.minZ, combined.minZ);

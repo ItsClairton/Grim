@@ -215,9 +215,11 @@ public enum HitboxData {
 
     WALL_HANGING_SIGN((player, item, version, data, x, y, z) -> {
         return switch (data.getFacing()) {
-            case NORTH, SOUTH -> new ComplexCollisionBox(new HexCollisionBox(0.0D, 14.0D, 6.0D, 16.0D, 16.0D, 10.0D),
+            case NORTH, SOUTH -> new ComplexCollisionBox(2,
+                    new HexCollisionBox(0.0D, 14.0D, 6.0D, 16.0D, 16.0D, 10.0D),
                     new HexCollisionBox(1.0D, 0.0D, 7.0D, 15.0D, 10.0D, 9.0D));
-            default -> new ComplexCollisionBox(new HexCollisionBox(6.0D, 14.0D, 0.0D, 10.0D, 16.0D, 16.0D),
+            default -> new ComplexCollisionBox(2,
+                    new HexCollisionBox(6.0D, 14.0D, 0.0D, 10.0D, 16.0D, 16.0D),
                     new HexCollisionBox(7.0D, 0.0D, 1.0D, 9.0D, 10.0D, 15.0D));
         };
     }, BlockTags.WALL_HANGING_SIGNS.getStates().toArray(new StateType[0])),
@@ -262,7 +264,7 @@ public enum HitboxData {
         if (version.isOlderThan(ClientVersion.V_1_13)) {
             return new SimpleCollisionBox(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
         } else {
-            return new ComplexCollisionBox(
+            return new ComplexCollisionBox(2,
                     new HexCollisionBox(1.0, 0.0, 1.0, 15.0, 2.0, 15.0),
                     new SimpleCollisionBox(0.4375, 0.0, 0.4375, 0.5625, 0.875, 0.5625, false));
         }
@@ -302,7 +304,8 @@ public enum HitboxData {
     }, StateTypes.SNOW),
 
     LECTERN_BLOCK((player, item, version, data, x, y, z) -> {
-        ComplexCollisionBox common = new ComplexCollisionBox(new HexCollisionBox(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D),
+        ComplexCollisionBox common = new ComplexCollisionBox(5,
+                new HexCollisionBox(0.0D, 0.0D, 0.0D, 16.0D, 2.0D, 16.0D),
                 new HexCollisionBox(4.0D, 2.0D, 4.0D, 12.0D, 14.0D, 12.0D));
 
         if (data.getFacing() == BlockFace.WEST) {
@@ -328,7 +331,7 @@ public enum HitboxData {
 
     GLOW_LICHEN_SCULK_VEIN((player, item, version, data, x, y, z) -> {
         if (version.isNewerThan(ClientVersion.V_1_16_4)) {
-            ComplexCollisionBox box = new ComplexCollisionBox();
+            ComplexCollisionBox box = new ComplexCollisionBox(6);
 
             if (data.isUp()) {
                 box.add(new HexCollisionBox(0.0D, 15.0D, 0.0D, 16.0D, 16.0D, 16.0D));
@@ -490,7 +493,7 @@ public enum HitboxData {
         }
 
         // STABLE_SHAPE for the scaffolding
-        ComplexCollisionBox box = new ComplexCollisionBox(
+        ComplexCollisionBox box = new ComplexCollisionBox(9,
                 new HexCollisionBox(0.0D, 14.0D, 0.0D, 16.0D, 16.0D, 16.0D),
                 new HexCollisionBox(0.0D, 0.0D, 0.0D, 2.0D, 16.0D, 2.0D),
                 new HexCollisionBox(14.0D, 0.0D, 0.0D, 16.0D, 16.0D, 2.0D),
@@ -511,7 +514,7 @@ public enum HitboxData {
         if (version.isOlderThanOrEquals(ClientVersion.V_1_16_4))
             return new SimpleCollisionBox(0, 0, 0, 1, 1, 1, true);
 
-        ComplexCollisionBox box = new ComplexCollisionBox();
+        ComplexCollisionBox box = new ComplexCollisionBox(2);
 
         if (data.getFacing() == BlockFace.NORTH) { // Stem
             box.add(new HexCollisionBox(5.0D, 0.0D, 9.0D, 11.0D, 15.0D, 15.0D));
@@ -558,7 +561,7 @@ public enum HitboxData {
         } else if (version.isNewerThan(ClientVersion.V_1_19_3)) {
             return new HexCollisionBox(0.0D, 0.0D, 0.0D, 16.0D, 3.0D, 16.0D);
         } else if (version.isNewerThan(ClientVersion.V_1_12_2)) {
-            return CORAL_FAN.dynamic.fetch(player, item, version, data, x, y, z);
+            return CORAL_FAN.box.copy();
         }
         return GRASS_FERN.dynamic.fetch(player, item, version, data, x, y, z);
     }, StateTypes.PINK_PETALS),
@@ -652,7 +655,7 @@ public enum HitboxData {
             }
         } else {
             // Via replacement - 4 sided vine
-            return new ComplexCollisionBox(
+            return new ComplexCollisionBox(4,
                     new HexCollisionBox(0.0D, 0.0D, 0.0D, 1.0D, 16.0D, 16.0D),
                     new HexCollisionBox(15.0D, 0.0D, 0.0D, 16.0D, 16.0D, 16.0D),
                     new HexCollisionBox(0.0D, 0.0D, 0.0D, 16.0D, 16.0D, 1.0D),

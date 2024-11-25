@@ -13,8 +13,6 @@ import com.github.retrooper.packetevents.protocol.world.states.enums.*;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateType;
 
 public class DynamicHitboxWall extends DynamicConnecting implements HitBoxFactory {
-    private static final CollisionBox[] HIT_BOXES = makeShapes(4.0F, 3.0F, 16.0F, 0.0F, 16.0F, false);
-
     @Override
     public CollisionBox fetch(GrimPlayer player, StateType heldItem, ClientVersion version, WrappedBlockState state, int x, int y, int z) {
         int[] connections = getConnections(player, version, state, x, y, z);
@@ -60,7 +58,7 @@ public class DynamicHitboxWall extends DynamicConnecting implements HitBoxFactor
     }
 
     private CollisionBox getModernHitBox(int north, int south, int west, int east, int up) {
-        ComplexCollisionBox box = new ComplexCollisionBox();
+        ComplexCollisionBox box = new ComplexCollisionBox(5);
         if (up == 1) {
             box.add(new HexCollisionBox(4, 0, 4, 12, 16, 12));
         }

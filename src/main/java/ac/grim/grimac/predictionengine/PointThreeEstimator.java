@@ -125,12 +125,13 @@ public class PointThreeEstimator {
 
         // Calculate head hitters.  Take a shortcut by checking if the player doesn't intersect with this block, but does
         // when the player vertically moves upwards by 0.03!  This is equivalent to the move method, but MUCH faster.
-        SimpleCollisionBox slightlyExpanded = normalBox.copy().expand(0.03, 0, 0.03);
-        if (!slightlyExpanded.isIntersected(data) && slightlyExpanded.offset(0, 0.03, 0).isIntersected(data)) {
+        double movementThreshold = player.getMovementThreshold();
+        SimpleCollisionBox slightlyExpanded = normalBox.copy().expand(movementThreshold, 0, movementThreshold);
+        if (!slightlyExpanded.isIntersected(data) && slightlyExpanded.offset(0, movementThreshold, 0).isIntersected(data)) {
             headHitter = true;
         }
 
-        SimpleCollisionBox pointThreeBox = GetBoundingBox.getBoundingBoxFromPosAndSize(player, player.x, player.y - 0.03, player.z, 0.66f, 1.86f);
+        SimpleCollisionBox pointThreeBox = GetBoundingBox.getBoundingBoxFromPosAndSize(player, player.x, player.y - movementThreshold, player.z, 0.66f, 1.86f);
         if ((Materials.isWater(player.getClientVersion(), state) || stateType == StateTypes.LAVA) &&
                 pointThreeBox.isIntersected(new SimpleCollisionBox(x, y, z))) {
 
@@ -210,7 +211,8 @@ public class PointThreeEstimator {
     }
 
     public void endOfTickTick() {
-        SimpleCollisionBox pointThreeBox = GetBoundingBox.getBoundingBoxFromPosAndSize(player, player.x, player.y - 0.03, player.z, 0.66f, 1.86f);
+        double movementThreshold = player.getMovementThreshold();
+        SimpleCollisionBox pointThreeBox = GetBoundingBox.getBoundingBoxFromPosAndSize(player, player.x, player.y - movementThreshold, player.z, 0.66f, 1.86f);
 
         // Determine the head hitter using the current Y position
         SimpleCollisionBox oldBB = player.boundingBox;
@@ -220,7 +222,7 @@ public class PointThreeEstimator {
         for (float sizes : (player.skippedTickInActualMovement ? new float[]{0.6f, 1.5f, 1.8f} : new float[]{player.pose.height})) {
             // Try to limit collisions to be as small as possible, for maximum performance
             player.boundingBox = GetBoundingBox.getBoundingBoxFromPosAndSize(player, player.x, player.y + (sizes - 0.01f), player.z, 0.6f, 0.01f);
-            headHitter = headHitter || Collisions.collide(player, 0, 0.03, 0).getY() != 0.03;
+            headHitter = headHitter || Collisions.collide(player, 0, movementThreshold, 0).getY() != movementThreshold;
         }
 
         player.boundingBox = oldBB;

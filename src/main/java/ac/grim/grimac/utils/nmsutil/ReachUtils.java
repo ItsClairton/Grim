@@ -176,14 +176,14 @@ public class ReachUtils {
     }
 
     public static double getMinReachToBox(GrimPlayer player, SimpleCollisionBox targetBox) {
-        boolean giveMovementThresholdLenience = player.packetStateData.didLastMovementIncludePosition || player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_9);
+        boolean giveMovementThresholdLenience = !player.packetStateData.didLastMovementIncludePosition || player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_9);
         if (player.getClientVersion().isOlderThanOrEquals(ClientVersion.V_1_8)) targetBox.expand(0.1);
 
         double lowest = Double.MAX_VALUE;
 
+        if (giveMovementThresholdLenience) targetBox.expand(player.getMovementThreshold());
         final var possibleEyeHeights = player.getPossibleEyeHeights();
         for (double eyes : possibleEyeHeights) {
-            if (giveMovementThresholdLenience) targetBox.expand(player.getMovementThreshold());
             Vector from = new Vector(player.x, player.y + eyes, player.z);
             Vector closestPoint = VectorUtils.cutBoxToVector(from, targetBox);
             lowest = Math.min(lowest, closestPoint.distance(from));

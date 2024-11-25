@@ -29,7 +29,7 @@ public class NoSlowA extends Check implements PostPredictionCheck {
         if (!predictionComplete.isChecked()) return;
 
         // If the player was using an item for certain, and their predicted velocity had a flipped item
-        if (player.packetStateData.isSlowedByUsingItem()) {
+        if (!predictionComplete.getData().isTeleport() && player.packetStateData.isSlowedByUsingItem()) {
             // 1.8 users are not slowed the first tick they use an item, strangely
             if (legacy && didSlotChangeLastTick) {
                 didSlotChangeLastTick = false;

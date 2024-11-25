@@ -60,13 +60,14 @@ public class Collisions {
         SimpleCollisionBox oldBB = player.boundingBox;
         player.boundingBox = GetBoundingBox.getBoundingBoxFromPosAndSize(player, x, y, z, 0.6f, 0.06f);
 
-        double posXZ = Collisions.collide(player, 0.03, -0.03, 0.03).getY();
-        double negXNegZ = Collisions.collide(player, -0.03, -0.03, -0.03).getY();
-        double posXNegZ = Collisions.collide(player, 0.03, -0.03, -0.03).getY();
-        double posZNegX = Collisions.collide(player, -0.03, -0.03, 0.03).getY();
+        double movementThreshold = player.getMovementThreshold();
+        double posXZ = Collisions.collide(player, movementThreshold, -movementThreshold, movementThreshold).getY();
+        double negXNegZ = Collisions.collide(player, -movementThreshold, -movementThreshold, -movementThreshold).getY();
+        double posXNegZ = Collisions.collide(player, movementThreshold, -movementThreshold, -movementThreshold).getY();
+        double posZNegX = Collisions.collide(player, -movementThreshold, -movementThreshold, movementThreshold).getY();
 
         player.boundingBox = oldBB;
-        return negXNegZ != -0.03 || posXNegZ != -0.03 || posXZ != -0.03 || posZNegX != -0.03;
+        return negXNegZ != -movementThreshold || posXNegZ != -movementThreshold || posXZ != -movementThreshold || posZNegX != -movementThreshold;
     }
 
     // Call this when there isn't uncertainty on the Y axis

@@ -21,7 +21,7 @@ import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
 
 public class DynamicCollisionPane extends DynamicConnecting implements CollisionFactory {
 
-    private static final CollisionBox[] COLLISION_BOXES = makeShapes(1.0F, 1.0F, 16.0F, 0.0F, 16.0F, true);
+    private static final CollisionBox[] COLLISION_BOXES = makeShapes(1.0F, 1.0F, 16.0F, 0.0F, 16.0F, true, 1);
 
     @Override
     public CollisionBox fetch(GrimPlayer player, ClientVersion version, WrappedBlockState block, int x, int y, int z) {
@@ -52,7 +52,7 @@ public class DynamicCollisionPane extends DynamicConnecting implements Collision
         if (version.isNewerThanOrEquals(ClientVersion.V_1_9)) {
             return COLLISION_BOXES[getAABBIndex(north, east, south, west)].copy();
         } else { // 1.8 and below clients have pane bounding boxes one pixel less
-            ComplexCollisionBox boxes = new ComplexCollisionBox();
+            ComplexCollisionBox boxes = new ComplexCollisionBox(2);
             if ((!west || !east) && (west || east || north || south)) {
                 if (west) {
                     boxes.add(new SimpleCollisionBox(0.0F, 0.0F, 0.4375F, 0.5F, 1.0F, 0.5625F));

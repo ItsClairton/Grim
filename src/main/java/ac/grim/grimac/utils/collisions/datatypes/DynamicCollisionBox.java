@@ -52,6 +52,11 @@ public class DynamicCollisionBox implements CollisionBox {
     }
 
     @Override
+    public int downCast(SimpleCollisionBox[] list) {
+        return box.fetch(player, version, block, x, y, z).offset(x, y, z).downCast(list);
+    }
+
+    @Override
     public void downCast(List<SimpleCollisionBox> list) {
         box.fetch(player, version, block, x, y, z).offset(x, y, z).downCast(list);
     }

@@ -16,10 +16,9 @@ import com.github.retrooper.packetevents.protocol.world.states.enums.West;
 import com.github.retrooper.packetevents.protocol.world.states.type.StateType;
 
 public class DynamicCollisionWall extends DynamicConnecting implements CollisionFactory {
-    public static final CollisionBox[] BOXES = makeShapes(4.0F, 3.0F, 16.0F, 0.0F, 16.0F, false);
     // https://bugs.mojang.com/browse/MC-9565
     // https://bugs.mojang.com/browse/MC-94016
-    private static final CollisionBox[] COLLISION_BOXES = makeShapes(4.0F, 3.0F, 24.0F, 0.0F, 24.0F, false);
+    private static final CollisionBox[] COLLISION_BOXES = makeShapes(4.0F, 3.0F, 24.0F, 0.0F, 24.0F, false, 1);
 
     /**
      * @deprecated use DynamicHitboxWall
@@ -53,12 +52,11 @@ public class DynamicCollisionWall extends DynamicConnecting implements Collision
 
         // On 1.13+ clients the bounding box is much more complicated
         if (version.isNewerThanOrEquals(ClientVersion.V_1_13)) {
-            ComplexCollisionBox box = new ComplexCollisionBox();
+            ComplexCollisionBox box = new ComplexCollisionBox(5);
 
             // Proper and faster way would be to compute all this beforehand
             if (up == 1) {
                 box.add(new HexCollisionBox(4, 0, 4, 12, 16, 12));
-                return box;
             }
 
             if (north == 1) {
@@ -81,6 +79,7 @@ public class DynamicCollisionWall extends DynamicConnecting implements Collision
             } else if (east == 2) {
                 box.add(new HexCollisionBox(5, 0, 5, 16, 16, 11));
             }
+            return box;
         }
 
         // Magic 1.8 code for walls that I copied over, 1.12 below uses this mess
@@ -143,9 +142,7 @@ public class DynamicCollisionWall extends DynamicConnecting implements Collision
         if (player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_13)) {
             // Proper and faster way would be to compute all this beforehand
             if (up) {
-                ComplexCollisionBox box = new ComplexCollisionBox(COLLISION_BOXES[getAABBIndex(north, east, south, west)].copy());
-                box.add(new HexCollisionBox(4, 0, 4, 12, 24, 12));
-                return box;
+                return COLLISION_BOXES[getAABBIndex(north, east, south, west)].copy().union(new HexCollisionBox(4, 0, 4, 12, 24, 12));
             }
 
             return COLLISION_BOXES[getAABBIndex(north, east, south, west)].copy();

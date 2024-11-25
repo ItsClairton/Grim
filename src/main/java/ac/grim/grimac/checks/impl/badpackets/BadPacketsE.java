@@ -21,7 +21,10 @@ public class BadPacketsE extends Check implements PacketCheck {
     public void onPacketReceive(PacketReceiveEvent event) {
         final var packet = event.getPacketType();
 
-        if (packet == Client.PLAYER_POSITION_AND_ROTATION || packet == Client.PLAYER_POSITION || packet == Client.STEER_VEHICLE) {
+        if (packet == Client.PLAYER_POSITION_AND_ROTATION
+                || packet == Client.PLAYER_POSITION
+                || packet == Client.STEER_VEHICLE
+                || packet == Client.VEHICLE_MOVE) {
             noReminderTicks = 0;
             return;
         }

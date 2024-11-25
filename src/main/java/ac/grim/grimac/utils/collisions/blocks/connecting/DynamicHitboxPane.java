@@ -15,7 +15,7 @@ import com.github.retrooper.packetevents.protocol.world.states.type.StateTypes;
 
 public class DynamicHitboxPane extends DynamicConnecting implements HitBoxFactory {
 
-    private static final CollisionBox[] COLLISION_BOXES = makeShapes(1.0F, 1.0F, 16.0F, 0.0F, 16.0F, true);
+    private static final CollisionBox[] COLLISION_BOXES = makeShapes(1.0F, 1.0F, 16.0F, 0.0F, 16.0F, true, 1);
 
     @Override
     public CollisionBox fetch(GrimPlayer player, StateType item, ClientVersion version, WrappedBlockState block, int x, int y, int z) {

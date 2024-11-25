@@ -23,7 +23,7 @@ public class PacketPlayerSteer extends PacketListenerAbstract {
 
     @Override
     public void onPacketReceive(PacketReceiveEvent event) {
-
+        //TODO: add support for 1.21.2 with new vehicle move packet
         if (event.getPacketType() == PacketType.Play.Client.STEER_VEHICLE) {
             final var steer = PacketUtil.lastWrapper(event,
                     WrapperPlayClientSteerVehicle.class,

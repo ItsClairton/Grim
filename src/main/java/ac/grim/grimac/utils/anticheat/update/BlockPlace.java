@@ -7,6 +7,7 @@ import ac.grim.grimac.utils.collisions.AxisUtil;
 import ac.grim.grimac.utils.collisions.CollisionData;
 import ac.grim.grimac.utils.collisions.blocks.DoorHandler;
 import ac.grim.grimac.utils.collisions.datatypes.CollisionBox;
+import ac.grim.grimac.utils.collisions.datatypes.ComplexCollisionBox;
 import ac.grim.grimac.utils.collisions.datatypes.SimpleCollisionBox;
 import ac.grim.grimac.utils.data.HitData;
 import ac.grim.grimac.utils.data.packetentity.PacketEntity;
@@ -40,6 +41,9 @@ import lombok.Setter;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class BlockPlace {
     protected static final BlockFace[] UPDATE_SHAPE_ORDER = new BlockFace[]{BlockFace.WEST, BlockFace.EAST, BlockFace.NORTH, BlockFace.SOUTH, BlockFace.DOWN, BlockFace.UP};
     private static final BlockFace[] BY_2D = new BlockFace[]{BlockFace.SOUTH, BlockFace.WEST, BlockFace.NORTH, BlockFace.EAST};
@@ -70,6 +74,9 @@ public class BlockPlace {
     Vector3f cursor;
 
     @Getter private final boolean block;
+
+    // Allocated once instead of in functions to reduce new[] calls that need to be made. Since per-instance BlockPlace is always dealt with on the same thread we can use 1 buffer array
+    private final SimpleCollisionBox[] collisions = new SimpleCollisionBox[ComplexCollisionBox.DEFAULT_MAX_COLLISION_BOX_SIZE];
 
     public BlockPlace(GrimPlayer player, InteractionHand hand, Vector3i blockPosition, int faceId, BlockFace face, ItemStack itemStack, HitData hitData) {
         this.player = player;
@@ -199,12 +206,12 @@ public class BlockPlace {
         if (BlockTags.LEAVES.contains(data.getType())) return false;
         if (BlockTags.FENCE_GATES.contains(data.getType())) return false;
 
-        List<SimpleCollisionBox> collisions = new ArrayList<>();
-        box.downCast(collisions);
+        int size = box.downCast(collisions);
 
         AxisSelect axis = AxisUtil.getAxis(facing.getOppositeFace());
 
-        for (SimpleCollisionBox simpleBox : collisions) {
+        for (int i = 0; i < size; i++) {
+            SimpleCollisionBox simpleBox = collisions[i];
             simpleBox = axis.modify(simpleBox);
             if (simpleBox.minX <= 7 / 16d && simpleBox.maxX >= 7 / 16d
                     && simpleBox.minY <= 0 && simpleBox.maxY >= 10 / 16d
@@ -224,12 +231,12 @@ public class BlockPlace {
         if (isFullFace(facing)) return true;
         if (BlockTags.LEAVES.contains(data.getType())) return false;
 
-        List<SimpleCollisionBox> collisions = new ArrayList<>();
-        box.downCast(collisions);
+        int size = box.downCast(collisions);
 
         AxisSelect axis = AxisUtil.getAxis(facing.getOppositeFace());
 
-        for (SimpleCollisionBox simpleBox : collisions) {
+        for (int i = 0; i < size; i++) {
+            SimpleCollisionBox simpleBox = collisions[i];
             simpleBox = axis.modify(simpleBox);
             if (simpleBox.minX <= 2 / 16d && simpleBox.maxX >= 14 / 16d
                     && simpleBox.minY <= 0 && simpleBox.maxY >= 1
@@ -288,10 +295,10 @@ public class BlockPlace {
             }
         }
 
-        List<SimpleCollisionBox> collisions = new ArrayList<>();
-        box.downCast(collisions);
+        int size = box.downCast(collisions);
 
-        for (SimpleCollisionBox simpleBox : collisions) {
+        for (int i = 0; i < size; i++) {
+            SimpleCollisionBox simpleBox = collisions[i];
             if (axis.modify(simpleBox).isFullBlockNoCache()) return true;
         }
 
@@ -317,12 +324,12 @@ public class BlockPlace {
         if (isFullFace(facing)) return true;
         if (BlockTags.LEAVES.contains(data.getType())) return false;
 
-        List<SimpleCollisionBox> collisions = new ArrayList<>();
-        box.downCast(collisions);
+        int size = box.downCast(collisions);
 
         AxisSelect axis = AxisUtil.getAxis(facing.getOppositeFace());
 
-        for (SimpleCollisionBox simpleBox : collisions) {
+        for (int i = 0; i < size; i++) {
+            SimpleCollisionBox simpleBox = collisions[i];
             simpleBox = axis.modify(simpleBox);
             // If all sides to the box have width, there is collision.
             switch (facing) {
