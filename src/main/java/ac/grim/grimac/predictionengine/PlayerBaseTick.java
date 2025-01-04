@@ -43,7 +43,11 @@ public class PlayerBaseTick {
         player.baseTickWaterPushing = new Vector();
 
         if (player.isFlying && player.isSneaking && !player.compensatedEntities.getSelf().inVehicle()) {
-            Vector flyingShift = new Vector(0, player.flySpeed * -3, 0);
+            final var flySpeed = player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_8)
+                    ? player.flySpeed
+                    : 0.05f;
+
+            Vector flyingShift = new Vector(0, flySpeed * -3, 0);
             player.baseTickAddVector(flyingShift);
             player.trackBaseTickAddition(flyingShift);
         }

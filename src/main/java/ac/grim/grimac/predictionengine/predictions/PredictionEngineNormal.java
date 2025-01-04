@@ -52,7 +52,11 @@ public class PredictionEngineNormal extends PredictionEngine {
 
                 JumpPower.jumpFromGround(player, jump);
             } else {
-                jump.add(new Vector(0, player.flySpeed * 3, 0));
+                final var flySpeed = player.getClientVersion().isNewerThanOrEquals(ClientVersion.V_1_8)
+                        ? player.flySpeed
+                        : 0.05f;
+
+                jump.add(new Vector(0, flySpeed * 3, 0));
                 if (!player.wasFlying) {
                     Vector edgeCaseJump = jump.clone();
                     JumpPower.jumpFromGround(player, edgeCaseJump);
