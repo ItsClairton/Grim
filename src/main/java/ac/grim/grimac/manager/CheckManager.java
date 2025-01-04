@@ -151,7 +151,7 @@ public class CheckManager {
                 .put(FabricatedPlace.class, new FabricatedPlace(player))
                 .put(PositionPlace.class, new PositionPlace(player))
                 .put(RotationPlace.class, new RotationPlace(player))
-                .put(DuplicateRotPlace.class, new DuplicateRotPlace(player))
+                // .put(DuplicateRotPlace.class, new DuplicateRotPlace(player))
                 .build();
 
         prePredictionChecks = new ImmutableClassToInstanceMap.Builder<PacketCheck>()
