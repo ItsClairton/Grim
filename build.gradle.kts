@@ -94,7 +94,7 @@ tasks {
             hangar("ViaBackwards", "5.1.1")
             hangar("ViaRewind", "4.0.3")
 
-            url("https://ci.lucko.me/job/spark/455/artifact/spark-bukkit/build/libs/spark-1.10.109-bukkit.jar")
+            url("https://ci.lucko.me/job/spark/469/artifact/spark-bukkit/build/libs/spark-1.10.121-bukkit.jar")
         }
     }
 
