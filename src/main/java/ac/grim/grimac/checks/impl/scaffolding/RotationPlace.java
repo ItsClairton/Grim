@@ -25,7 +25,7 @@ public class RotationPlace extends BlockPlaceCheck {
 
     // If the player flags once, force them to play legit, or we will cancel the tick before.
     private byte flagBuffer;
-    
+
     // Ignore post-check if pre-check flag player
     private boolean ignorePost;
 
@@ -52,7 +52,11 @@ public class RotationPlace extends BlockPlaceCheck {
             return;
         }
 
-        if (!flagAndAlert(new Pair<>("stage", "pre-flying"))) {
+        if (!flagAndAlert(new Pair<>("stage", "pre-flying"),
+                new Pair<>("placed-material", place.getMaterial()),
+                new Pair<>("placed-pos", place.getPlacedBlockPos()),
+                new Pair<>("against-material", place.getPlacedAgainstMaterial()),
+                new Pair<>("against-pos", place.getPlacedAgainstBlockLocation()))) {
             return;
         }
 
@@ -89,7 +93,11 @@ public class RotationPlace extends BlockPlaceCheck {
             return;
         }
 
-        if (!flagAndAlert(new Pair<>("stage", "post-flying"))) {
+        if (!flagAndAlert(new Pair<>("stage", "post-flying"),
+                new Pair<>("placed-material", place.getMaterial()),
+                new Pair<>("placed-pos", place.getPlacedBlockPos()),
+                new Pair<>("against-material", place.getPlacedAgainstMaterial()),
+                new Pair<>("against-pos", place.getPlacedAgainstBlockLocation()))) {
             return;
         }
 
