@@ -31,10 +31,14 @@ public class InventoryA extends Check implements PacketCheck {
                 WrapperPlayClientInteractEntity.class,
                 () -> new WrapperPlayClientInteractEntity(event));
 
-        if (!flagAndAlert(new Pair<>("window-id", handler.getWindowId()),
-                new Pair<>("entity-id", wrapper.getEntityId()),
-                new Pair<>("action", wrapper.getAction()))) {
-            return;
+        if (!handler.isSentClose()) {
+            handler.closeInventory();
+        } else {
+            if (!flagAndAlert(new Pair<>("window-id", handler.getWindowId()),
+                    new Pair<>("entity-id", wrapper.getEntityId()),
+                    new Pair<>("action", wrapper.getAction()))) {
+                return;
+            }
         }
 
         if (!shouldModifyPackets()) {

@@ -9,6 +9,7 @@ import com.github.retrooper.packetevents.protocol.packettype.PacketType;
 import com.github.retrooper.packetevents.protocol.player.ClientVersion;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClickWindow;
 import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientClientStatus;
+import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerCloseWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerOpenHorseWindow;
 import com.github.retrooper.packetevents.wrapper.play.server.WrapperPlayServerOpenWindow;
 import lombok.Getter;
@@ -16,7 +17,9 @@ import lombok.Getter;
 public class InventoryHandler extends Check implements PacketCheck {
 
     private @Getter int windowId = -1;
+
     private final boolean legacyClient;
+    private @Getter boolean sentClose;
 
     public InventoryHandler(GrimPlayer player) {
         super(player);
@@ -36,7 +39,7 @@ public class InventoryHandler extends Check implements PacketCheck {
                     return;
                 }
 
-                windowId = 0;
+                setWindowId(0);
             }
         }
 
@@ -49,12 +52,12 @@ public class InventoryHandler extends Check implements PacketCheck {
                     WrapperPlayClientClickWindow.class,
                     () -> new WrapperPlayClientClickWindow(event));
 
-            windowId = wrapper.getWindowId();
+            setWindowId(wrapper.getWindowId());
             return;
         }
 
         if (event.getPacketType() == PacketType.Play.Client.CLOSE_WINDOW) {
-            windowId = -1;
+            setWindowId(-1);
         }
     }
 
@@ -73,7 +76,7 @@ public class InventoryHandler extends Check implements PacketCheck {
             }
 
             player.sendTransaction();
-            player.latencyUtils.addRealTimeTask(player.lastTransactionSent.get(), () -> windowId = window.getContainerId());
+            player.latencyUtils.addRealTimeTask(player.lastTransactionSent.get(), () -> setWindowId(window.getContainerId()));
             return;
         }
 
@@ -83,18 +86,35 @@ public class InventoryHandler extends Check implements PacketCheck {
                     () -> new WrapperPlayServerOpenHorseWindow(event));
 
             player.sendTransaction();
-            player.latencyUtils.addRealTimeTask(player.lastTransactionSent.get(), () -> windowId = wrapper.getWindowId());
+            player.latencyUtils.addRealTimeTask(player.lastTransactionSent.get(), () -> setWindowId(wrapper.getWindowId()));
         }
 
         if (event.getPacketType() == PacketType.Play.Server.CLOSE_WINDOW) {
             player.sendTransaction();
-            player.latencyUtils.addRealTimeTask(player.lastTransactionSent.get(), () -> windowId = -1);
+            player.latencyUtils.addRealTimeTask(player.lastTransactionSent.get(), () -> setWindowId(-1));
+        }
+    }
+
+    public void closeInventory() {
+        if (sentClose) {
+            return;
         }
 
+        player.user.sendPacketSilently(new WrapperPlayServerCloseWindow(windowId));
+        player.sendTransaction();
+        player.latencyUtils.addRealTimeTask(player.lastTransactionSent.get(), () -> {
+            this.sentClose = true;
+            this.windowId = -1;
+        });
     }
 
     public void handleRespawn() {
-        windowId = -1;
+        setWindowId(-1);
+    }
+
+    private void setWindowId(int windowId) {
+        this.sentClose = false;
+        this.windowId = windowId;
     }
 
 }

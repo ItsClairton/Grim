@@ -32,10 +32,14 @@ public class InventoryB extends Check implements PacketCheck {
                 WrapperPlayClientPlayerBlockPlacement.class,
                 () -> new WrapperPlayClientPlayerBlockPlacement(event));
 
-        if (!flagAndAlert(new Pair<>("window-id", handler.getWindowId()),
-                new Pair<>("position", wrapper.getBlockPosition()),
-                new Pair<>("face", wrapper.getFace()))) {
-            return;
+        if (!handler.isSentClose()) {
+            handler.closeInventory();
+        } else {
+            if (!flagAndAlert(new Pair<>("window-id", handler.getWindowId()),
+                    new Pair<>("position", wrapper.getBlockPosition()),
+                    new Pair<>("face", wrapper.getFace()))) {
+                return;
+            }
         }
 
         if (!shouldModifyPackets()) {
